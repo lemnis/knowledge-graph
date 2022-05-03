@@ -1,3 +1,5 @@
+const base = new URL(import.meta?.url.slice(0) || document.currentScript?.getAttribute('src') || '');
+
 const fact = (key, value) => /*html*/ `
   <div class="card__fact">
     <dd>${key}:</dd>
@@ -7,7 +9,7 @@ const fact = (key, value) => /*html*/ `
 const profile = (name, icon, link) => /*html*/ `
   <li class="card-profile">
     <a class="card-profile__link" href="${link}" title="${name}">
-      <img src="${icon}" />
+      <img src="${new URL(icon, base)}" />
       ${name}
     </a>
   </li>`;
