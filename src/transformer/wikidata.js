@@ -334,7 +334,7 @@ export const transform = (data, id, lang = "en") =>
       source: {
         link: `https://www.wikidata.org/wiki/${id}`,
         text: /*html*/ `Powered by Wikidata <img src="${new URL(
-          "/src/assets/wikidata.svg",
+          "assets/wikidata.svg",
           base
         )}" width="32" height="16" />`,
       },
