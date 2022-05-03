@@ -8,11 +8,11 @@ import { CategoryProperties } from "./wikidata/data/category-properties.js";
 const Socials = {
   Wikipedia: {
     name: "Wikipedia",
-    icon: "/src/socials/wikipedia.svg",
+    icon: "socials/wikipedia.svg",
   },
   P856: {
     name: "Website",
-    icon: "/src/socials/imdb.svg",
+    icon: "socials/imdb.svg",
   },
   ...[...Object.entries(ExternalId)]
     .filter((i) => i[1].ignore !== true && i[1].icon)
@@ -334,7 +334,7 @@ export const transform = (data, id, lang = "en") =>
       source: {
         link: `https://www.wikidata.org/wiki/${id}`,
         text: /*html*/ `Powered by Wikidata <img src="${new URL(
-          "/assets/wikidata.svg",
+          "/src/assets/wikidata.svg",
           base
         )}" width="32" height="16" />`,
       },
