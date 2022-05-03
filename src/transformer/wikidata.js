@@ -1,4 +1,4 @@
-import { base } from "./constants.js";
+import { base } from "../constants.js";
 import { ExternalId } from "./wikidata/data/external-id.js";
 import { WikimediaEntities } from "./wikidata/data/wikimedia-entities.js";
 import { GlobeCoordinate } from "./wikidata/data/globe-coordinate.js";
