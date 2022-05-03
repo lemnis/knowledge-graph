@@ -7,7 +7,37 @@
     <title>Document</title>
   </head>
   <body>
-    <div style="display: grid; grid-template-columns: repeat(3, 30vw); grid-gap: 2em; width: 100%">
+    <div>
+      <input
+        style="
+          margin: 2em auto;
+          width: min(500px, 90%);
+          display: block;
+          font-size: 1.2em;
+          border-radius: var(--border-radius);
+          border: 1px solid black;
+          padding: 1em;
+        "
+        list="searchList"
+        type="search"
+        value="Q19799735"
+      />
+      <datalist id="searchList"> </datalist>
+      <knowledge-graph
+        id="example"
+        key="Q19799735"
+        source="wikidata"
+      ></knowledge-graph>
+    </div>
+
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, 30vw);
+        grid-gap: 2em;
+        width: 100%;
+      "
+    >
       <!-- <knowledge-graph key="New York" source="duckduckgo"></knowledge-graph>
       <knowledge-graph key="Malaga" source="duckduckgo"></knowledge-graph>
       <knowledge-graph key="Camp Nou  " source="duckduckgo"></knowledge-graph> -->
@@ -21,7 +51,51 @@
       <knowledge-graph key="Q20138806" source="wikidata"></knowledge-graph>
       <knowledge-graph key="Q159848" source="wikidata"></knowledge-graph>
     </div>
+    <h1>Persons</h1>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, 30vw);
+        grid-gap: 2em;
+        width: 100%;
+      "
+    >
+      <knowledge-graph key="Q48435" source="wikidata"></knowledge-graph>
+      <knowledge-graph key="Q20138806" source="wikidata"></knowledge-graph>
+      <knowledge-graph key="Q159848" source="wikidata"></knowledge-graph>
+    </div>
     <script src="./script.js" type="module" crossorigin=""></script>
     <link rel="stylesheet" href="./style.css" />
+    <script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://kraaden.github.io/autocomplete/autocomplete.css"
+    />
+    <script crossorigin="">
+      var countries = [];
+
+      var input = document.querySelector("input[type=search]");
+
+      autocomplete({
+        input: input,
+        fetch: async function (text, update) {
+          const response = await fetch(
+            `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${text}&format=json&errorformat=plaintext&language=en&uselang=en&type=item&origin=*`
+          );
+          const json = await response.json();
+          update(
+            json.search.map((i) => ({
+              label: `${i.label} (${i.description || ''})`,
+              value: i.id,
+            }))
+          );
+        },
+        onSelect: function (item) {
+          document.querySelector("#example").setAttribute("key", item.value);
+          input.value = item.label.split('(')?.[0]?.trim();
+        },
+      });
+    </script>
   </body>
 </html>

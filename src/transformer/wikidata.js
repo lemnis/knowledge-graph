@@ -262,7 +262,6 @@ export const transform = (data, id, lang = "en") =>
         acc.images.push({
           link: `https://commons.wikimedia.org/w/thumb.php?width=1000&f=${image}`,
         });
-        console.log({ link: acc.image.link, value: item.value.value });
       } else if (item.prop.value.endsWith("/P856")) {
         acc.website = item.valueLabel.value;
       } else if (item.prop.value.endsWith("/P625")) {
