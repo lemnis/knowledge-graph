@@ -97,7 +97,7 @@ export const ExternalId = {
   // SBN author ID
   P396: { ignore: true },
   // OpenStreetMap relation ID
-  P402: { name: "OSM", icon: "/src/socials/openstreetmap.svg" },
+  P402: { name: "OSM", icon: "socials/openstreetmap.svg" },
   // Libraries Australia ID
   P409: { ignore: true },
   // botanist author abbreviation
@@ -107,11 +107,11 @@ export const ExternalId = {
   // callsign of airline
   P432: { ignore: true },
   // MusicBrainz artist ID
-  P434: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P434: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // MusicBrainz work ID
-  P435: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P435: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // MusicBrainz release group ID
-  P436: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P436: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // German municipality key
   P439: { ignore: true },
   // German district key
@@ -475,13 +475,13 @@ export const ExternalId = {
   // Austrian municipality key
   P964: { ignore: true },
   // MusicBrainz label ID
-  P966: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P966: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // code for weekend and holiday homes (Sweden)
   P980: { ignore: true },
   // BAG residence ID
   P981: { ignore: true },
   // MusicBrainz area ID
-  P982: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P982: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // IOC country code
   P984: { ignore: true },
   // Philippine Standard Geographic Code
@@ -493,7 +493,7 @@ export const ExternalId = {
   // National Library of Romania ID
   P1003: { ignore: true },
   // MusicBrainz place ID
-  P1004: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P1004: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // Portuguese National Library ID
   P1005: { ignore: true },
   // Nationale Thesaurus voor Auteurs ID
@@ -773,7 +773,7 @@ export const ExternalId = {
   // Terminologia Anatomica 98 ID
   P1323: { ignore: true },
   // MusicBrainz instrument ID
-  P1330: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P1330: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // PACE member ID
   P1331: { ignore: true },
   // EPSG CRS
@@ -827,7 +827,7 @@ export const ExternalId = {
   // World Glacier Inventory ID
   P1404: { ignore: true },
   // MusicBrainz series ID
-  P1407: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P1407: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // Cycling Archives cyclist ID
   P1409: { ignore: true },
   // Oxford Dictionary of National Biography ID
@@ -1185,7 +1185,7 @@ export const ExternalId = {
   // BALaT person/organisation id
   P1901: { ignore: true },
   // Spotify artist ID
-  P1902: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P1902: { name: "Spotify", icon: "socials/spotify.svg" },
   // Australian Dictionary of Biography ID
   P1907: { ignore: true },
   // CWGC person ID
@@ -1261,11 +1261,11 @@ export const ExternalId = {
   // Soccerbase manager ID
   P2195: { ignore: true },
   // Spotify album ID
-  P2205: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P2205: { name: "Spotify", icon: "socials/spotify.svg" },
   // Discogs release ID
   P2206: { ignore: true },
   // Spotify track ID
-  P2207: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P2207: { name: "Spotify", icon: "socials/spotify.svg" },
   // SourceForge project
   P2209: { ignore: true },
   // Florentine musea catalogue ID
@@ -1797,7 +1797,7 @@ export const ExternalId = {
   // UNDP country code
   P2983: { ignore: false },
   // Snapchat username
-  P2984: { name: "Snapchat", icon: "/src/socials/snapchat.svg" },
+  P2984: { name: "Snapchat", icon: "socials/snapchat.svg" },
   // DBSE ID
   P2985: { ignore: true },
   // aircraft registration prefix
@@ -4259,7 +4259,7 @@ export const ExternalId = {
   // Women's Collegiate Tennis Hall of Fame ID
   P4402: { ignore: true },
   // MusicBrainz recording ID
-  P4404: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P4404: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // NLBPA ID
   P4405: { ignore: true },
   // Nova Scotia Sport Hall of Fame ID (dead link)
@@ -4667,9 +4667,9 @@ export const ExternalId = {
   // Wiki Aves bird ID
   P4664: { ignore: true },
   // CineMagia title ID
-  P4665: { name: "CineMagia", icon: "/src/socials/CineMagia.jpg" },
+  P4665: { name: "CineMagia", icon: "socials/CineMagia.jpg" },
   // CineMagia person ID
-  P4666: { name: "CineMagia", icon: "/src/socials/CineMagia.jpg" },
+  P4666: { name: "CineMagia", icon: "socials/CineMagia.jpg" },
   // Buenos Aires legislator ID
   P4667: { ignore: true },
   // USA Gymnastics Hall of Fame athlete ID
@@ -6311,7 +6311,7 @@ export const ExternalId = {
   // Alternativa Teatral place ID
   P5809: { ignore: true },
   // MusicBrainz release ID
-  P5813: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P5813: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // IANA service name
   P5814: { ignore: true },
   // Olympics.com athlete ID / archived OlympicChannel ID
@@ -6435,7 +6435,7 @@ export const ExternalId = {
   // Shazam track ID
   P5915: { ignore: true },
   // Spotify show ID
-  P5916: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P5916: { name: "Spotify", icon: "socials/spotify.svg" },
   // Shazam artist ID
   P5917: { ignore: true },
   // Sprockhoff-ID
@@ -7213,7 +7213,7 @@ export const ExternalId = {
   // ManualsLib brand ID
   P6422: { ignore: true },
   // MusicBrainz event ID
-  P6423: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P6423: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // LGD local body code
   P6425: { ignore: true },
   // Hymnary hymnal ID
@@ -9707,7 +9707,7 @@ export const ExternalId = {
   // GRY-Online company ID
   P7997: { ignore: true },
   // Podchaser podcast ID
-  P7998: { name: "Podchaser", icon: "/src/socials/podchaser.webp" },
+  P7998: { name: "Podchaser", icon: "socials/podchaser.webp" },
   // Haz-Map ID
   P7999: { ignore: true },
   // Social Security Death Index entry
@@ -9781,7 +9781,7 @@ export const ExternalId = {
   // Geschichtsquellen des deutschen Mittelalters author ID
   P8051: { ignore: true },
   // MusicBrainz genre ID
-  P8052: { name: "MusicBrainz", icon: "/src/socials/music-brainz.svg" },
+  P8052: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // Latvian unified registration number
   P8053: { ignore: true },
   // Amazon.com Prime Video ID
@@ -10267,7 +10267,7 @@ export const ExternalId = {
   // Nomor Pokok Wajib Pajak (organisation or corporation)
   P8346: { ignore: true },
   // Spotify songwriter ID
-  P8347: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P8347: { name: "Spotify", icon: "socials/spotify.svg" },
   // NVE River Network (ELVIS) ID
   P8348: { ignore: true },
   // Proleksis enciklopedija ID
@@ -10675,7 +10675,7 @@ export const ExternalId = {
   // Kramerius of Moravian Library UUID
   P8752: { ignore: true },
   // OpenStreetMap numeric user ID
-  P8754: { name: "OSM", icon: "/src/socials/openstreetmap.svg" },
+  P8754: { name: "OSM", icon: "socials/openstreetmap.svg" },
   // VA facility ID
   P8755: { ignore: true },
   // Sports-Reference.com college basketball box score ID
@@ -10993,7 +10993,7 @@ export const ExternalId = {
   // Scottish Brick History Brick & Tileworks ID
   P8700: { ignore: true },
   // Spotify playlist ID
-  P8704: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P8704: { name: "Spotify", icon: "socials/spotify.svg" },
   // Artist ID of the department of Prints and Drawings of the Louvre
   P8705: { ignore: true },
   // NBIC taxon ID
@@ -12545,7 +12545,7 @@ export const ExternalId = {
   // Central records of collections ID
   P9742: { ignore: true },
   // Podchaser creator ID
-  P9743: { name: "Podchaser", icon: "/src/socials/podchaser.webp" },
+  P9743: { name: "Podchaser", icon: "socials/podchaser.webp" },
   // Steam Greenlight game ID
   P9744: { ignore: true },
   // CEICE school code
@@ -12789,7 +12789,7 @@ export const ExternalId = {
   // Every Noise at Once ID
   P9881: { ignore: true },
   // Spotify show episode ID
-  P9882: { name: "Spotify", icon: "/src/socials/spotify.svg" },
+  P9882: { name: "Spotify", icon: "socials/spotify.svg" },
   // Online Begraafplaatsen cemetery ID
   P9884: { ignore: true },
   // Bing entity ID
@@ -13497,7 +13497,7 @@ export const ExternalId = {
   // Muz-TV ID
   P10288: { ignore: true },
   // Podchaser numeric ID
-  P10289:{ name: "Podchaser", icon: "/src/socials/podchaser.webp" },
+  P10289:{ name: "Podchaser", icon: "socials/podchaser.webp" },
   // Wikisimpsons ID
   P10291: { ignore: true },
   // Wörterbuch der Präpositionen ID
@@ -13809,7 +13809,7 @@ export const ExternalId = {
   // Change.org decision maker ID
   P10457: { ignore: true },
   // Podchaser episode ID
-  P10458:{ name: "Podchaser", icon: "/src/socials/podchaser.webp" },
+  P10458:{ name: "Podchaser", icon: "socials/podchaser.webp" },
   // Rusactors actor ID
   P10459: { ignore: true },
   // Rusactors film ID
@@ -14177,7 +14177,7 @@ export const ExternalId = {
   // Personality Database work ID
   P10688: { ignore: true },
   // OpenStreetMap object
-  P10689: { name: "OSM", icon: "/src/socials/openstreetmap.svg" },
+  P10689: { name: "OSM", icon: "socials/openstreetmap.svg" },
   // GEMET ID
   P10690: { ignore: true },
   // Enciclopedia Colchagüina ID

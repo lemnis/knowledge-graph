@@ -1,3 +1,4 @@
+import { base } from "./constants.js";
 import { ExternalId } from "./wikidata/data/external-id.js";
 import { WikimediaEntities } from "./wikidata/data/wikimedia-entities.js";
 import { GlobeCoordinate } from "./wikidata/data/globe-coordinate.js";
@@ -255,8 +256,12 @@ export const transform = (data, id, lang = "en") =>
         return acc;
 
       if (ImageProperties.some((i) => item.prop.value.endsWith(i))) {
-        const image = item.value.value.replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '').replace(/%20/g, '+');
-        acc.images.push({ link: `https://commons.wikimedia.org/w/thumb.php?width=1000&f=${image}` });
+        const image = item.value.value
+          .replace("http://commons.wikimedia.org/wiki/Special:FilePath/", "")
+          .replace(/%20/g, "+");
+        acc.images.push({
+          link: `https://commons.wikimedia.org/w/thumb.php?width=1000&f=${image}`,
+        });
         console.log({ link: acc.image.link, value: item.value.value });
       } else if (item.prop.value.endsWith("/P856")) {
         acc.website = item.valueLabel.value;
@@ -328,7 +333,10 @@ export const transform = (data, id, lang = "en") =>
       profiles: [],
       source: {
         link: `https://www.wikidata.org/wiki/${id}`,
-        text: /*html*/ `Powered by Wikidata <img src="./assets/wikidata.svg" width="32" height="16" />`,
+        text: /*html*/ `Powered by Wikidata <img src="${new URL(
+          "/assets/wikidata.svg",
+          base
+        )}" width="32" height="16" />`,
       },
     }
   );

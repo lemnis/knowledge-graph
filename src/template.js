@@ -1,4 +1,4 @@
-const base = new URL(import.meta?.url.slice(0) || document.currentScript?.getAttribute('src') || '');
+import { base } from "./constants.js";
 
 const fact = (key, value) => /*html*/ `
   <div class="card__fact">
