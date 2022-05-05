@@ -1,10 +1,20 @@
 /*
+Base query:
 SELECT DISTINCT ?prop ?propLabel WHERE {
   ?prop wikibase:propertyType wikibase:ExternalId.
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 } ORDER BY ?prop
+
+Ignore deprecated:
+SELECT DISTINCT ?prop ?icon WHERE {
+  ?prop wikibase:propertyType wikibase:ExternalId.
+  ?prop wdt:P31/wdt:P279* wd:Q60457486.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY (?prop)
 */
 
+/** @type {Record<string, { ignore?: boolean, name?: string, icon?: string }>} */
 export const ExternalId = {
   // ISBN-13
   P212: { ignore: true },
@@ -13,12 +23,12 @@ export const ExternalId = {
   // VIAF ID
   P214: { ignore: true },
   // ISO 639-1 code
-  P218: { ignore: true },
+  P218: { ignore: false },
   // ISO 639-2 code
-  P219: { ignore: true },
+  P219: { ignore: false },
   // ISO 639-3 code
-  P220: { ignore: true },
-  // ISO 639-6 code
+  P220: { ignore: false },
+  // ISO 639-6 code (discontinued)
   P221: { ignore: true },
   // GND ID
   P227: { ignore: true },
@@ -53,13 +63,13 @@ export const ExternalId = {
   // GOST 7.75–97 code
   P278: { ignore: true },
   // ISO 3166-1 alpha-2 code
-  P297: { ignore: true },
+  P297: { ignore: false },
   // ISO 3166-1 alpha-3 code
-  P298: { ignore: true },
+  P298: { ignore: false },
   // ISO 3166-1 numeric code
-  P299: { ignore: true },
+  P299: { ignore: false },
   // ISO 3166-2 code
-  P300: { ignore: true },
+  P300: { ignore: false },
   // EE breed number
   P303: { ignore: true },
   // IETF language tag
@@ -103,9 +113,9 @@ export const ExternalId = {
   // botanist author abbreviation
   P428: { ignore: true },
   // dantai code
-  P429: { ignore: true },
+  P429: { ignore: false },
   // callsign of airline
-  P432: { ignore: true },
+  P432: { ignore: false },
   // MusicBrainz artist ID
   P434: { name: "MusicBrainz", icon: "socials/music-brainz.svg" },
   // MusicBrainz work ID
@@ -149,11 +159,11 @@ export const ExternalId = {
   // CBDB ID
   P497: { ignore: true },
   // ISO 4217 code
-  P498: { ignore: true },
+  P498: { ignore: false },
   // ISO standard
-  P503: { ignore: true },
+  P503: { ignore: false },
   // ISO 15924 alpha-4 code
-  P506: { ignore: true },
+  P506: { ignore: false },
   // Swedish county code
   P507: { ignore: true },
   // BNCF Thesaurus ID
@@ -325,7 +335,7 @@ export const ExternalId = {
   // INE municipality code
   P772: { ignore: true },
   // ISO 3166-3
-  P773: { ignore: true },
+  P773: { ignore: false },
   // FIPS 55-3 (locations in the US)
   P774: { ignore: true },
   // Swedish urban area code
@@ -363,7 +373,7 @@ export const ExternalId = {
   // Meteoritical Bulletin Database ID
   P824: { ignore: true },
   // BBC programme ID
-  P827: { ignore: true },
+  P827: { name: "BBC", icon: "socials/bbc.svg" },
   // OEIS ID
   P829: { ignore: true },
   // Encyclopedia of Life ID
@@ -593,7 +603,7 @@ export const ExternalId = {
   // CODEN
   P1159: { ignore: true },
   // ISO 4 abbreviation
-  P1160: { ignore: true },
+  P1160: { ignore: false },
   // Z39.5 abbreviation
   P1161: { ignore: true },
   // Bluebook abbreviation
@@ -684,7 +694,7 @@ export const ExternalId = {
   P1251: { ignore: true },
   // AUSTLANG code
   P1252: { ignore: true },
-  // BCU Ecrivainsvd ID
+  // BCU Ecrivainsvd ID (discontinued)
   P1253: { ignore: true },
   // Slovenska biografija ID
   P1254: { ignore: true },
@@ -862,7 +872,7 @@ export const ExternalId = {
   P1467: { ignore: true },
   // WALS family code
   P1468: { ignore: true },
-  // FIFA player ID
+  // FIFA player ID (discontinued)
   P1469: { ignore: true },
   // BLPL author ID
   P1473: { ignore: true },
@@ -883,7 +893,7 @@ export const ExternalId = {
   // Exceptional heritage of Wallonia ID
   P1551: { ignore: true },
   // Yandex Music artist ID
-  P1553: { ignore: true },
+  P1553: { name: "Yandex Music", icon: "socials/yandex-music.svg" },
   // UBERON ID
   P1554: { ignore: true },
   // Executive Order number
@@ -903,7 +913,7 @@ export const ExternalId = {
   // NIS/INS code
   P1567: { ignore: true },
   // BBC Genome ID
-  P1573: { ignore: true },
+  P1573: { name: "BBC", icon: "socials/bbc.svg" },
   // RISS catalog
   P1575: { ignore: true },
   // Gregory-Aland-Number
@@ -947,7 +957,7 @@ export const ExternalId = {
   // SIREN number
   P1616: { ignore: true },
   // BBC Things ID
-  P1617: { ignore: true },
+  P1617: { name: "BBC", icon: "socials/bbc.svg" },
   // MarineTraffic Port ID
   P1624: { ignore: true },
   // Thai cultural heritage ID
@@ -1017,8 +1027,8 @@ export const ExternalId = {
   // British Museum person or institution ID
   P1711: { ignore: true },
   // Metacritic ID
-  P1712: { ignore: true },
-  // Journalisted ID
+  P1712: { name: "Metacritic", icon: "socials/metacritic.svg" },
+  // Journalisted ID (discontinued)
   P1714: { ignore: true },
   // RKD/ESD (Slovenia) ID
   P1715: { ignore: true },
@@ -1029,15 +1039,15 @@ export const ExternalId = {
   // Flora of North America taxon ID
   P1727: { ignore: true },
   // AllMusic artist ID
-  P1728: { ignore: true },
+  P1728: { name: "AllMusic", icon: "socials/all-music.svg" },
   // AllMusic album ID
-  P1729: { ignore: true },
+  P1729: { name: "AllMusic", icon: "socials/all-music.svg" },
   // AllMusic song ID
-  P1730: { ignore: true },
+  P1730: { name: "AllMusic", icon: "socials/all-music.svg" },
   // Naturbase ID
   P1732: { ignore: true },
   // Steam application ID
-  P1733: { ignore: true },
+  P1733: { name: "Steam", icon: "socials/steam.svg" },
   // Comedien.ch ID
   P1735: { ignore: true },
   // Information Center for Israeli Art artist ID
@@ -1087,7 +1097,7 @@ export const ExternalId = {
   // Smithsonian American Art Museum person/institution ID
   P1795: { ignore: true },
   // ISO 639-5 code
-  P1798: { ignore: true },
+  P1798: { ignore: false },
   // Maltese Islands National Inventory of Cultural Property ID
   P1799: { ignore: true },
   // Wikimedia database name
@@ -1161,7 +1171,7 @@ export const ExternalId = {
   // CERL Thesaurus ID
   P1871: { ignore: true },
   // Netflix ID
-  P1874: { ignore: true },
+  P1874: { name: "Netflix", icon: "socials/netflix.svg" },
   // Web Gallery of Art ID
   P1882: { ignore: true },
   // Declarator.org ID
@@ -1226,9 +1236,9 @@ export const ExternalId = {
   P2170: { ignore: true },
   // TheyWorkForYou ID
   P2171: { ignore: true },
-  // Parliamentary record identifier
+  // (discontinued) Parliamentary record identifier
   P2172: { ignore: true },
-  // BBC News Democracy Live ID
+  // (discontinued) BBC News Democracy Live ID
   P2173: { ignore: true },
   // Museum of Modern Art artist ID
   P2174: { ignore: true },
@@ -1301,7 +1311,7 @@ export const ExternalId = {
   // Austrian Parliament ID
   P2280: { ignore: true },
   // Apple Music album ID (U.S. version)
-  P2281: { ignore: true },
+  P2281: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // Groeningemuseum work PID
   P2282: { ignore: true },
   // CRIStin ID
@@ -1421,28 +1431,28 @@ export const ExternalId = {
   // Hungarian company ID
   P2619: { ignore: true },
   // ISO 15924 numeric code
-  P2620: { ignore: true },
+  P2620: { ignore: false },
   // Site of Special Scientific Interest (England) ID
   P2621: { ignore: true },
   // Companies House company ID
   P2622: { ignore: true },
   // MEK ID
   P2623: { ignore: true },
-  // MetroLyrics ID
+  // (discontinued) MetroLyrics ID
   P2624: { ignore: true },
   // PASE ID
   P2625: { ignore: true },
   // Danish National Filmography person ID
   P2626: { ignore: true },
   // ISO 9362 SWIFT/BIC code
-  P2627: { ignore: true },
+  P2627: { ignore: false },
   // German tax authority ID
   P2628: { ignore: true },
   // TCM Movie Database film ID
   P2631: { ignore: true },
   // Minkultury film ID
   P2636: { ignore: true },
-  // TV.com ID
+  // (discontinued) TV.com ID
   P2638: { ignore: true },
   // Filmportal ID
   P2639: { ignore: true },
@@ -1468,7 +1478,7 @@ export const ExternalId = {
   P2671: { ignore: true },
   // SOATO ID
   P2672: { ignore: true },
-  // Russiancinema.ru film ID
+  // (discontinued) Russiancinema.ru film ID
   P2678: { ignore: true },
   // Bekker Number
   P2683: { ignore: true },
@@ -1567,7 +1577,7 @@ export const ExternalId = {
   // blue-style.com ID
   P2765: { ignore: true },
   // ISO 4063 process number
-  P2766: { ignore: true },
+  P2766: { ignore: false },
   // JudoInside judoka ID
   P2767: { ignore: true },
   // BNE journal ID
@@ -1633,7 +1643,7 @@ export const ExternalId = {
   // Sherdog fighter ID
   P2818: { ignore: true },
   // Yandex Music release ID
-  P2819: { ignore: true },
+  P2819: { name: "Yandex Music", icon: "socials/yandex-music.svg" },
   // Royal Belgian Football Association player ID
   P2823: { ignore: true },
   // Gazetteer of Planetary Nomenclature ID
@@ -1654,10 +1664,10 @@ export const ExternalId = {
   P2843: { ignore: true },
   // RAN ID
   P2845: { ignore: true },
-  // Google+ ID
+  // Google+ ID (discontinued)
   P2847: { ignore: true },
   // Apple Music artist ID (U.S. version)
-  P2850: { ignore: true },
+  P2850: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // EU Surface Water Body Code
   P2856: { ignore: true },
   // WWE.com superstar ID
@@ -1767,7 +1777,7 @@ export const ExternalId = {
   // BVPH publication ID
   P2961: { ignore: true },
   // Goodreads author ID
-  P2963: { ignore: true },
+  P2963: { name: "Goodreads", icon: "socials/goodreads.png" },
   // EU River Basin District code
   P2965: { ignore: true },
   // National Library of Wales Authority ID
@@ -1777,7 +1787,7 @@ export const ExternalId = {
   // QUDT unit ID
   P2968: { ignore: true },
   // Goodreads version/edition ID
-  P2969: { ignore: true },
+  P2969: { name: "Goodreads", icon: "socials/goodreads.png" },
   // Kinopolis film ID
   P2970: { ignore: true },
   // GCatholic church ID
@@ -2135,7 +2145,7 @@ export const ExternalId = {
   // LdiF ID
   P3107: { ignore: true },
   // Yelp ID
-  P3108: { ignore: true },
+  P3108: { name: "Yelp", icon: "socials/yelp.svg" },
   // Peakbagger mountain ID
   P3109: { ignore: true },
   // ISzDb film ID
@@ -2198,9 +2208,9 @@ export const ExternalId = {
   P3141: { ignore: true },
   // EDb person ID
   P3142: { ignore: true },
-  // elFilm film ID
+  // (discontinued) elFilm film ID
   P3143: { ignore: true },
-  // elFilm person ID
+  // (discontinued) elFilm person ID
   P3144: { ignore: true },
   // Sratim ID
   P3145: { ignore: true },
@@ -2254,7 +2264,7 @@ export const ExternalId = {
   P3181: { ignore: true },
   // FANTOIR code
   P3182: { ignore: true },
-  // Wall Street Journal topic ID
+  // (discontinued) Wall Street Journal topic ID
   P3183: { ignore: true },
   // Czech National Bibliography ID
   P3184: { ignore: true },
@@ -2267,7 +2277,7 @@ export const ExternalId = {
   // IMIS person ID
   P3191: { ignore: true },
   // Last.fm ID
-  P3192: { ignore: true },
+  P3192: { name: "Last.fm", icon: "socials/last-fm.png" },
   // GS1 Company Prefix
   P3193: { ignore: true },
   // INA video ID
@@ -2315,7 +2325,7 @@ export const ExternalId = {
   // KvK company ID
   P3220: { ignore: true },
   // New York Times topic ID
-  P3221: { ignore: true },
+  P3221: { name: "New York Times", icon: "socials/new-york-times.svg" },
   // NE.se ID
   P3222: { ignore: true },
   // Online List of Lights ID
@@ -2371,7 +2381,7 @@ export const ExternalId = {
   // Library of Congress Format Description Document ID
   P3266: { ignore: true },
   // Flickr user ID
-  P3267: { ignore: true },
+  P3267: { name: "Flickr", icon: "socials/flckr.svg" },
   // Fotografen.nl ID
   P3269: { ignore: true },
   // Zeri image ID
@@ -2388,7 +2398,7 @@ export const ExternalId = {
   P3281: { ignore: true },
   // Bandcamp ID
   P3283: { ignore: true },
-  // Yahoo! Japan Talent Database ID
+  // (discontinued) Yahoo! Japan Talent Database ID
   P3284: { ignore: true },
   // Mathematics Subject Classification ID
   P3285: { ignore: true },
@@ -2448,7 +2458,7 @@ export const ExternalId = {
   P3328: { ignore: true },
   // CIViC variant ID
   P3329: { ignore: true },
-  // Supermodels.nl ID
+  // (discontinued) Supermodels.nl ID
   P3330: { ignore: true },
   // HGVS nomenclature
   P3331: { ignore: true },
@@ -2573,9 +2583,9 @@ export const ExternalId = {
   // Yle Areena item ID
   P3414: { ignore: true },
   // Quora topic ID
-  P3417: { ignore: true },
+  P3417: { name: "Quora", icon: "socials/quora.svg" },
   // Google Play Store app ID
-  P3418: { ignore: true },
+  P3418: { name: "Google Play", icon: "socials/google-play.svg" },
   // Basic Unit of Settlement code (Czech)
   P3419: { ignore: true },
   // Calflora ID
@@ -2698,7 +2708,7 @@ export const ExternalId = {
   P3515: { ignore: true },
   // National Park Foundation ID
   P3516: { ignore: true },
-  // Geographical Names Board of NSW ID
+  // (discontinued) Geographical Names Board of NSW ID
   P3517: { ignore: true },
   // Smithsonian trinomial
   P3518: { ignore: true },
@@ -2728,7 +2738,7 @@ export const ExternalId = {
   P3532: { ignore: true },
   // DraftExpress ID
   P3533: { ignore: true },
-  // Australian Government Organisations Register ID
+  // (discontinued) Australian Government Organisations Register ID
   P3534: { ignore: true },
   // Japan Golf Tour player ID
   P3535: { ignore: true },
@@ -2797,7 +2807,7 @@ export const ExternalId = {
   // European Case Law ID
   P3570: { ignore: true },
   // ESPN.com MLB player ID
-  P3571: { ignore: true },
+  P3571: { name: "ESPN", icon: "socials/espn.svg" },
   // ESPNcricinfo playing ground ID
   P3572: { ignore: true },
   // European Handball Federation player ID (archived)
@@ -2995,11 +3005,11 @@ export const ExternalId = {
   // Driver Database driver ID
   P3684: { ignore: true },
   // ESPN.com NBA player ID
-  P3685: { ignore: true },
+  P3685: { name: "ESPN", icon: "socials/espn.svg" },
   // ESPN.com NFL player ID
-  P3686: { ignore: true },
+  P3686: { name: "ESPN", icon: "socials/espn.svg" },
   // ESPN.com NHL player ID
-  P3687: { ignore: true },
+  P3687: { name: "ESPN", icon: "socials/espn.svg" },
   // ICF canoer ID
   P3689: { ignore: true },
   // IFSC climber ID
@@ -3068,7 +3078,7 @@ export const ExternalId = {
   P3731: { ignore: true },
   // PhilPapers record
   P3732: { ignore: true },
-  // MOOMA artist ID
+  // (discontinued) MOOMA artist ID
   P3733: { ignore: true },
   // Yad Vashem Encyclopedia of the Ghettos ID
   P3735: { ignore: true },
@@ -3129,7 +3139,7 @@ export const ExternalId = {
   // BNMM authority ID
   P3788: { ignore: true },
   // Telegram username
-  P3789: { ignore: true },
+  P3789: { name: "Telegram", icon: "socials/telegram.svg" },
   // AnimeCons.com guest ID
   P3790: { ignore: true },
   // Art Renewal Center artist ID
@@ -3162,7 +3172,7 @@ export const ExternalId = {
   P3807: { ignore: true },
   // The Numbers movie ID
   P3808: { ignore: true },
-  // YerelNET district ID
+  // (discontinued) YerelNET district ID
   P3809: { ignore: true },
   // Parks.it ID
   P3810: { ignore: true },
@@ -3196,10 +3206,10 @@ export const ExternalId = {
   P3830: { ignore: true },
   // Europeana Fashion Vocabulary ID
   P3832: { ignore: true },
-  // Mendeley person ID
+  // (discontinued) Mendeley person ID
   P3835: { ignore: true },
   // Pinterest username
-  P3836: { ignore: true },
+  P3836: { name: "Pinterest", icon: "socials/pinterest.svg" },
   // United States Public Law
   P3837: { ignore: true },
   // Tab4u song ID
@@ -3243,7 +3253,7 @@ export const ExternalId = {
   // Wormbase Gene ID
   P3860: { ignore: true },
   // App Store app ID
-  P3861: { ignore: true },
+  P3861: { name: "App Store", icon: "socials/apple-store.svg" },
   // MyDramaList name ID
   P3862: { ignore: true },
   // Italian Navy Lighthouses and Beacons ID
@@ -3372,7 +3382,7 @@ export const ExternalId = {
   P3951: { ignore: true },
   // Stereo Ve Mono artist ID
   P3952: { ignore: true },
-  // ALPG Tour golf player ID
+  // (discontinued) ALPG Tour golf player ID
   P3953: { ignore: true },
   // Italian Senate ID
   P3954: { ignore: true },
@@ -3479,7 +3489,7 @@ export const ExternalId = {
   // Plazi ID
   P1992: { ignore: true },
   // AllMusic composition ID
-  P1994: { ignore: true },
+  P1994: { name: "AllMusic", icon: "socials/all-music.svg" },
   // parliament.uk biography pages
   P1996: { ignore: true },
   // Facebook Places ID
@@ -3528,14 +3538,14 @@ export const ExternalId = {
   P2028: { ignore: true },
   // Dictionary of Ulster Biography ID
   P2029: { ignore: true },
-  // NASA biographical ID
+  // (discontinued) NASA biographical ID
   P2030: { ignore: true },
   // Project Gutenberg ebook ID
   P2034: { ignore: true },
   // African Plant Database ID
   P2036: { ignore: true },
   // GitHub username
-  P2037: { ignore: true },
+  P2037: { name: "Github", icon: "socials/github.svg" },
   // ResearchGate profile ID
   P2038: { ignore: true },
   // CITES Species+ ID
@@ -3577,9 +3587,9 @@ export const ExternalId = {
   // CDD Public ID
   P2086: { ignore: true },
   // Crunchbase person ID
-  P2087: { ignore: true },
+  P2087: { name: "Crunchbase", icon: "socials/crunchbase.svg" },
   // Crunchbase organization ID
-  P2088: { ignore: true },
+  P2088: { name: "Crunchbase", icon: "socials/crunchbase.svg" },
   // Library of Congress JukeBox ID (former scheme)
   P2089: { ignore: true },
   // Power of 10 athlete ID
@@ -3759,7 +3769,7 @@ export const ExternalId = {
   // Zemereshet song ID
   P4072: { ignore: true },
   // Fandom wiki ID
-  P4073: { ignore: true },
+  P4073: { name: "Fandom", icon: "socials/fandom.svg" },
   // FFN swimmer ID
   P4074: { ignore: true },
   // Czech Monument Catalogue Number
@@ -3913,7 +3923,7 @@ export const ExternalId = {
   // Wikimedia username
   P4174: { ignore: true },
   // Patreon ID
-  P4175: { ignore: true },
+  P4175: { name: "Patreon", icon: "socials/patreon.svg" },
   // Finnish National Gallery artist ID
   P4177: { ignore: true },
   // Beazley Archive Pottery Database ID
@@ -4035,7 +4045,7 @@ export const ExternalId = {
   // THW Kiel player ID
   P4263: { ignore: true },
   // LinkedIn company ID
-  P4264: { name: "LinkedIn", icon: "socials/linkedin.svg" },
+  P4264: { name: "LinkedIn", icon: "socials/linkedin.png" },
   // Reddit username
   P4265: { name: "Reddit", icon: "socials/reddit.svg" },
   // Bavarian geotope ID
@@ -4273,7 +4283,7 @@ export const ExternalId = {
   // Women's Basketball Hall of Fame ID
   P4410: { ignore: true },
   // Quora username
-  P4411: { ignore: true },
+  P4411: { name: "Quora", icon: "socials/quora.svg" },
   // Ontario Sports Hall of Fame ID (archived)
   P4412: { ignore: true },
   // Manitoba Sports Hall of Fame ID
@@ -4312,7 +4322,7 @@ export const ExternalId = {
   P4434: { ignore: true },
   // snap package
   P4435: { ignore: true },
-  // The Coptic Library ID
+  // (discontinued) The Coptic Library ID
   P4436: { ignore: true },
   // BFI Films, TV and people ID
   P4438: { ignore: true },
@@ -4324,7 +4334,7 @@ export const ExternalId = {
   P4449: { ignore: true },
   // HAL author ID
   P4450: { ignore: true },
-  // Scoresway handball person ID
+  // (discontinued) Scoresway handball person ID
   P4451: { ignore: true },
   // Argentine Senate member ID
   P4453: { ignore: true },
@@ -4355,7 +4365,7 @@ export const ExternalId = {
   // Unified Astronomy Thesaurus ID
   P4466: { ignore: true },
   // Twitch game ID
-  P4467: { ignore: true },
+  P4467: { name: "Twitch", icon: "socials/twitch.svg" },
   // Mountain Bike Hall of Fame inductee ID
   P4468: { ignore: true },
   // IGHOF athlete ID
@@ -4393,7 +4403,7 @@ export const ExternalId = {
   // INDUCKS miniseries ID
   P4485: { ignore: true },
   // Google Play developer ID
-  P4486: { ignore: true },
+  P4486: { name: "Google Play Store", icon: "socials/google-play.svg" },
   // Camera Decision ID
   P4487: { ignore: true },
   // COAM architect ID
@@ -4476,7 +4486,7 @@ export const ExternalId = {
   P4536: { ignore: true },
   // Spider Ontology ID
   P4537: { ignore: true },
-  // Snooker Database player ID
+  // (discontinued) Snooker Database player ID
   P4538: { ignore: true },
   // Collective Biographies of Women ID
   P4539: { ignore: true },
@@ -4554,7 +4564,7 @@ export const ExternalId = {
   P4583: { ignore: true },
   // Accademia della Crusca ID
   P4585: { ignore: true },
-  // Argentinian Historic Heritage ID
+  // (discontinued) Argentinian Historic Heritage ID
   P4587: { ignore: true },
   // International World Games Association athlete ID
   P4588: { ignore: true },
@@ -4782,7 +4792,7 @@ export const ExternalId = {
   P4727: { ignore: true },
   // uBio ID
   P4728: { ignore: true },
-  // INRAN Italian Food ID
+  // (discontinued) INRAN Italian Food ID
   P4729: { ignore: true },
   // Mir@bel journal ID
   P4730: { ignore: true },
@@ -4991,7 +5001,7 @@ export const ExternalId = {
   // Charity Navigator ID
   P4861: { ignore: true },
   // Amazon author ID
-  P4862: { ignore: true },
+  P4862: { name: "Amazon", icon: "socials/amazon.svg" },
   // REBASE Enzyme Number
   P4866: { ignore: true },
   // Hispania Nostra Red List code
@@ -5318,13 +5328,13 @@ export const ExternalId = {
   P5114: { ignore: true },
   // Directory of Open Access Journals ID
   P5115: { ignore: true },
-  // LGDB game ID
+  // (discontinued) LGDB game ID
   P5116: { ignore: true },
-  // LGDB emulator ID
+  // (discontinued) LGDB emulator ID
   P5117: { ignore: true },
-  // LGDB tool ID
+  // (discontinued) LGDB tool ID
   P5118: { ignore: true },
-  // LGDB engine ID
+  // (discontinued) LGDB engine ID
   P5119: { ignore: true },
   // TFRRS athlete ID
   P5120: { ignore: true },
@@ -5427,7 +5437,7 @@ export const ExternalId = {
   // BAG building ID
   P5208: { ignore: true },
   // ISO 3950 code
-  P5209: { ignore: true },
+  P5209: { ignore: false },
   // National Gallery of Armenia work ID
   P5210: { ignore: true },
   // GONIAT author ID
@@ -5644,7 +5654,7 @@ export const ExternalId = {
   P5344: { ignore: true },
   // PC Engine Software Bible ID
   P5345: { ignore: true },
-  // Playboy Plus ID
+  // (discontinued) Playboy Plus ID
   P5346: { ignore: true },
   // Amphibian Species of the World ID
   P5354: { ignore: true },
@@ -5904,7 +5914,7 @@ export const ExternalId = {
   P5531: { ignore: true },
   // L'île author ID
   P5532: { ignore: true },
-  // Kopaliński Online ID
+  // (discontinued) Kopaliński Online ID
   P5533: { ignore: true },
   // Open Media Database person ID
   P5534: { ignore: true },
@@ -6097,7 +6107,7 @@ export const ExternalId = {
   // France Musique person ID
   P5654: { ignore: true },
   // Apple Music music video ID
-  P5655: { ignore: true },
+  P5655: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // MuIS collection ID
   P5656: { ignore: true },
   // National Humanities Medal winner ID
@@ -6217,7 +6227,7 @@ export const ExternalId = {
   // Basisklassifikation
   P5748: { ignore: true },
   // Amazon Standard Identification Number
-  P5749: { ignore: true },
+  P5749: { name: "Amazon", icon: "socials/amazon.svg" },
   // FBref player ID
   P5750: { ignore: true },
   // Syndikat ID
@@ -6295,7 +6305,7 @@ export const ExternalId = {
   // Internet Game Database person ID
   P5796: { ignore: true },
   // Twitch channel ID
-  P5797: { ignore: true },
+  P5797: { name: "Twitch", icon: "socials/twitch.svg" },
   // AustLII ID
   P5799: { ignore: true },
   // Academia.edu topic ID
@@ -6322,7 +6332,7 @@ export const ExternalId = {
   P5819: { ignore: true },
   // Film Indonesia ID
   P5820: { ignore: true },
-  // ArhivX LOD
+  // (discontinued) ArhivX LOD
   P5821: { ignore: true },
   // Belvedere object ID
   P5823: { ignore: true },
@@ -6343,9 +6353,9 @@ export const ExternalId = {
   // Académie de Marseille member ID
   P5839: { ignore: true },
   // NPR podcast ID
-  P5840: { ignore: true },
+  P5840: { name: "NPR", icon: "socials/npr.svg" },
   // Apple Podcasts podcast ID
-  P5842: { ignore: true },
+  P5842: { name: "Apple Podcasts", icon: "socials/apple-podcast.svg" },
   // Gynopedia ID
   P5843: { ignore: true },
   // Treccani Vocabulary ID
@@ -6433,11 +6443,11 @@ export const ExternalId = {
   // IANA Root Zone Database ID
   P5914: { ignore: true },
   // Shazam track ID
-  P5915: { ignore: true },
+  P5915: { name: "Shazam", icon: "socials/shazam.svg" },
   // Spotify show ID
   P5916: { name: "Spotify", icon: "socials/spotify.svg" },
   // Shazam artist ID
-  P5917: { ignore: true },
+  P5917: { name: "Shazam", icon: "socials/shazam.svg" },
   // Sprockhoff-ID
   P5918: { ignore: true },
   // Index of Historic Collectors and Dealers of Cubism ID
@@ -6459,7 +6469,7 @@ export const ExternalId = {
   // IGN TV series ID
   P5932: { ignore: true },
   // tweet ID
-  P5933: { ignore: true },
+  P5933: { name: "Twitter", icon: "socials/twitter.svg" },
   // Short Title Catalogue Flanders (STCV) identifier
   P5934: { ignore: true },
   // Flanders Arts Institute production ID
@@ -6502,7 +6512,7 @@ export const ExternalId = {
   P5957: { ignore: true },
   // Women's Japan Basketball League ID
   P5958: { ignore: true },
-  // V.League ID (obsolete)
+  // (discontinued) V.League ID (obsolete)
   P5959: { ignore: true },
   // Japan Professional Basketball League ID
   P5960: { ignore: true },
@@ -6654,7 +6664,7 @@ export const ExternalId = {
   P6063: { ignore: true },
   // Scoresway ice hockey person ID
   P6064: { ignore: true },
-  // Scoresway rugby person ID
+  // (discontinued) Scoresway rugby person ID
   P6065: { ignore: true },
   // ARD Mediathek ID
   P6067: { ignore: true },
@@ -6668,9 +6678,9 @@ export const ExternalId = {
   P6077: { ignore: true },
   // GameFAQs platform ID
   P6078: { ignore: true },
-  // Discogs track ID
+  // (discontinued) Discogs track ID
   P6079: { ignore: true },
-  // Discogs composition ID
+  // (discontinued) Discogs composition ID
   P6080: { ignore: true },
   // RIA Novosti reference
   P6081: { ignore: true },
@@ -6707,7 +6717,7 @@ export const ExternalId = {
   // Danish Football Union player ID
   P6109: { ignore: true },
   // AllMusic release ID
-  P6110: { ignore: true },
+  P6110: { name: "AllMusic", icon: "socials/all-music.svg" },
   // MusicNotes product ID
   P6111: { ignore: true },
   // Playbill venue ID
@@ -6742,7 +6752,7 @@ export const ExternalId = {
   P6132: { ignore: true },
   // Siamzone film ID
   P6133: { ignore: true },
-  // Thaifilm ID
+  // (discontinued) Thaifilm ID
   P6134: { ignore: true },
   // VD 18 ID
   P6135: { ignore: true },
@@ -6857,7 +6867,7 @@ export const ExternalId = {
   // member of the Portuguese parliament ID
   P6199: { ignore: true },
   // BBC News topic ID
-  P6200: { ignore: true },
+  P6200: { name: "BBC", icon: "socials/bbc.svg" },
   // OBV editions ID
   P6201: { ignore: true },
   // Geolex ID
@@ -6935,7 +6945,7 @@ export const ExternalId = {
   // Lego element ID
   P6248: { ignore: true },
   // Apple Music music movie ID (U.S. version)
-  P6250: { ignore: true },
+  P6250: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // BSRussia player ID
   P6252: { ignore: true },
   // Beachsoccer.ru player ID
@@ -6945,7 +6955,7 @@ export const ExternalId = {
   // SinemaTürk film ID
   P6256: { ignore: true },
   // Fandom article ID
-  P6262: { ignore: true },
+  P6262: { name: "Fandom", icon: "socials/fandom.svg" },
   // MinDat mineral ID
   P6263: { ignore: true },
   // Harvard Index of Botanists ID
@@ -6959,7 +6969,7 @@ export const ExternalId = {
   // Danmarks svampeatlas ID
   P6268: { ignore: true },
   // Amazon Music artist ID
-  P6276: { ignore: true },
+  P6276: { name: "Amazon", icon: "socials/amazon.svg" },
   // Objectif Gard topic ID
   P6277: { ignore: true },
   // Epic Games Store ID
@@ -6987,7 +6997,7 @@ export const ExternalId = {
   // Penthouse ID
   P6290: { ignore: true },
   // Complete BBC Micro Games Archive ID
-  P6292: { ignore: true },
+  P6292: { name: "BBC", icon: "socials/bbc.svg" },
   // YSA ID
   P6293: { ignore: true },
   // ARTIC exhibition ID
@@ -7015,10 +7025,10 @@ export const ExternalId = {
   // Wikimedia VRTS ticket number
   P6305: { ignore: true },
   // AllMusic performance ID
-  P6306: { ignore: true },
+  P6306: { name: "AllMusic", icon: "socials/all-music.svg" },
   // Wikibase Registry ID
   P6307: { ignore: true },
-  // Scoresway tennis person ID
+  // (discontinued) Scoresway tennis person ID
   P6308: { ignore: true },
   // historical Répertoire national des associations identifier
   P6309: { ignore: true },
@@ -7057,7 +7067,7 @@ export const ExternalId = {
   // DVR Number
   P6326: { ignore: true },
   // Goodreads character ID
-  P6327: { ignore: true },
+  P6327: { name: "Goodreads", icon: "socials/goodreads.png" },
   // Politika topic ID
   P6328: { ignore: true },
   // Share-VDE 1.0 author ID
@@ -7112,7 +7122,7 @@ export const ExternalId = {
   P6361: { ignore: true },
   // Litchfield Ledger ID
   P6362: { ignore: true },
-  // Microsoft Academic ID
+  // (discontinued) Microsoft Academic ID
   P6366: { ignore: true },
   // Bahamut Gamer's Community ACG Database ID
   P6367: { ignore: true },
@@ -7135,7 +7145,7 @@ export const ExternalId = {
   // VectorBase taxonomy ID
   P6377: { ignore: true },
   // iTunes TV season ID
-  P6381: { ignore: true },
+  P6381: { name: "iTunes", icon: "socials/itunes.svg" },
   // Hungarian public thesaurus ID
   P6382: { ignore: true },
   // TV Spielfilm film ID
@@ -7161,9 +7171,9 @@ export const ExternalId = {
   // ELNET ID
   P6394: { ignore: true },
   // Apple Books book ID (American version)
-  P6395: { ignore: true },
+  P6395: { name: "Apple Books", icon: "socials/apple-books.svg" },
   // iTunes movie ID
-  P6398: { ignore: true },
+  P6398: { name: "iTunes", icon: "socials/itunes.svg" },
   // Romanian Soccer player ID
   P6399: { ignore: true },
   // Skimap area ID
@@ -7222,7 +7232,7 @@ export const ExternalId = {
   P6430: { ignore: true },
   // Hymnary tune ID
   P6431: { ignore: true },
-  // Global Species ID
+  // (discontinued) Global Species ID
   P6433: { ignore: true },
   // Amsterdam code
   P6434: { ignore: true },
@@ -7359,7 +7369,7 @@ export const ExternalId = {
   // Business Registry code (Estonia)
   P6518: { ignore: true },
   // ISO 639-3 Change Request ID
-  P6519: { ignore: true },
+  P6519: { ignore: false },
   // Lokalhistoriewiki.no ID
   P6520: { ignore: true },
   // Crew United person ID
@@ -7377,9 +7387,9 @@ export const ExternalId = {
   // Gateway to Research Project ID
   P6536: { ignore: true },
   // Yandex Music genre ID
-  P6537: { ignore: true },
+  P6537: { name: "Yandex Music", icon: "socials/yandex-music.svg" },
   // Yandex Music label ID
-  P6538: { ignore: true },
+  P6538: { name: "Yandex Music", icon: "socials/yandex-music.svg" },
   // Catálogo de Patrimonio Cultural de Castilla-La Mancha ID
   P6539: { ignore: true },
   // Inventário dos Monumentos RJ ID
@@ -7451,7 +7461,7 @@ export const ExternalId = {
   // BlackPast.org ID
   P6723: { ignore: true },
   // Trainline ID
-  P6724: { ignore: true },
+  P6724: { ignore: false },
   // CatholicSaints.info ID
   P6725: { ignore: true },
   // NSW Capital Conviction ID
@@ -7652,7 +7662,7 @@ export const ExternalId = {
   P6847: { ignore: true },
   // abART institution ID
   P6848: { ignore: true },
-  // DR topic ID
+  // (discontinued) DR topic ID
   P6849: { ignore: true },
   // ABA League ID
   P6850: { ignore: true },
@@ -7734,7 +7744,7 @@ export const ExternalId = {
   P6903: { ignore: true },
   // ATRF ID
   P6904: { ignore: true },
-  // Bebo profile ID
+  // (discontinued) Bebo profile ID
   P6905: { ignore: true },
   // National Library of Aruba ID
   P6906: { ignore: true },
@@ -7772,7 +7782,7 @@ export const ExternalId = {
   P6922: { ignore: true },
   // Moov artist ID
   P6923: { ignore: true },
-  // Murfie artist ID
+  // (discontinued) Murfie artist ID
   P6924: { ignore: true },
   // Musicalics composer ID
   P6925: { ignore: true },
@@ -7811,7 +7821,7 @@ export const ExternalId = {
   // AiF dossier ID
   P6561: { ignore: true },
   // Google Play Movies & TV ID
-  P6562: { ignore: true },
+  P6562: { name: "Google Play", icon: "socials/google-play.svg" },
   // Brilliant Wiki ID
   P6564: { ignore: true },
   // Musenor artwork ID
@@ -8009,11 +8019,11 @@ export const ExternalId = {
   // Bionomia ID
   P6944: { ignore: true },
   // Steam profile ID
-  P6945: { ignore: true },
+  P6945: { name: "Steam", icon: "socials/steam.svg" },
   // Find & Connect ID
   P6946: { ignore: true },
   // Goodreads series ID
-  P6947: { ignore: true },
+  P6947: { name: "Goodreads", icon: "socials/goodreads.png" },
   // Scandipop topic ID
   P6950: { ignore: true },
   // 2014 Commonwealth Games athlete ID
@@ -8089,7 +8099,7 @@ export const ExternalId = {
   // magazine in BitArkivo.org
   P6997: { ignore: true },
   // iTunes movie collection ID
-  P6998: { ignore: true },
+  P6998: { name: "iTunes", icon: "socials/itunes.svg" },
   // Musisque Deoque author ID
   P6999: { ignore: true },
   // DigitalNZ ID
@@ -8222,7 +8232,7 @@ export const ExternalId = {
   P7216: { ignore: true },
   // MTV UK artist ID
   P7217: { ignore: true },
-  // Vox FM artist ID
+  // Vox FM artist ID (discontinued)
   P7218: { ignore: true },
   // Eiga.com movie ID
   P7222: { ignore: true },
@@ -8273,7 +8283,7 @@ export const ExternalId = {
   // Transporter Classification Database ID
   P7260: { ignore: true },
   // ESPN.com college football player ID
-  P7262: { ignore: true },
+  P7262: { name: "ESPN", icon: "socials/espn.svg" },
   // Prime Pages ID
   P7263: { ignore: true },
   // FCC Grantee Code
@@ -8303,7 +8313,7 @@ export const ExternalId = {
   // New Encyclopedic Dictionary of Czech ID
   P7276: { ignore: true },
   // Pandora artist ID
-  P7277: { ignore: true },
+  P7277: { name: "Pandora", icon: "socials/pandora.png" },
   // Peakbagger climber ID
   P7278: { ignore: true },
   // Peakbagger key col ID
@@ -8369,7 +8379,7 @@ export const ExternalId = {
   // TDV İslam Ansiklopedisi ID
   P7314: { ignore: true },
   // iHeart artist ID
-  P7317: { ignore: true },
+  P7317: { name: "iHeartRadio", icon: "socials/iheartradio.svg" },
   // Behind The Voice Actors short ID
   P7318: { ignore: true },
   // ExplorePaTrails ID
@@ -8383,7 +8393,7 @@ export const ExternalId = {
   // Archnet site ID
   P7323: { ignore: true },
   // iHeartRadio podcast ID
-  P7324: { ignore: true },
+  P7324: { name: "iHeartRadio", icon: "socials/iheartradio.svg" },
   // DANE code
   P7325: { ignore: true },
   // MobyGames genre ID
@@ -8526,7 +8536,7 @@ export const ExternalId = {
   P7159: { ignore: true },
   // Kinsky–Halm Catalogue
   P7161: { ignore: true },
-  // Raptekster.dk ID
+  // Raptekster.dk ID (discontinued)
   P7164: { ignore: true },
   // Acharts.co song ID
   P7166: { ignore: true },
@@ -8733,7 +8743,7 @@ export const ExternalId = {
   // Wolfram Language quantity ID
   P7431: { ignore: true },
   // Steam bundle ID
-  P7432: { ignore: true },
+  P7432: { name: "Steam", icon: "socials/steam.svg" },
   // FantLab author ID
   P7433: { ignore: true },
   // NAD place ID
@@ -9189,7 +9199,7 @@ export const ExternalId = {
   // The Sierra Chest ID
   P7702: { ignore: true },
   // Spanish Quora topic ID
-  P7703: { ignore: true },
+  P7703: { name: "Quora", icon: "socials/quora.svg" },
   // Europeana entity
   P7704: { ignore: true },
   // SNESmusic.org company ID
@@ -9785,7 +9795,7 @@ export const ExternalId = {
   // Latvian unified registration number
   P8053: { ignore: true },
   // Amazon.com Prime Video ID
-  P8055: { ignore: true },
+  P8055: { name: "Amazon Prime Video", icon: "socials/amazon-video.svg" },
   // VGMRips composer ID
   P8056: { ignore: true },
   // Apache Project ID
@@ -10193,7 +10203,7 @@ export const ExternalId = {
   // Cinema Context ID
   P8296: { ignore: true },
   // New York Times contributor ID
-  P8297: { ignore: true },
+  P8297: { name: "New York Times", icon: "socials/new-york-times.svg" },
   // HBO Max ID
   P8298: { ignore: true },
   // Semantic Scholar corpus ID
@@ -10319,7 +10329,7 @@ export const ExternalId = {
   // Finales Rugby ID
   P8382: { ignore: true },
   // Goodreads work ID
-  P8383: { ignore: true },
+  P8383: { name: "Goodreads", icon: "socials/goodreads.png" },
   // locality number in Austria
   P8384: { ignore: true },
   // IDU person ID
@@ -10567,7 +10577,7 @@ export const ExternalId = {
   // PARADISEC Catalog
   P8560: { ignore: true },
   // NPR station ID
-  P8561: { ignore: false },
+  P8561: { name: "NPR", icon: "socials/npr.svg" },
   // JSTOR publisher ID
   P8562: { ignore: true },
   // Emporis company ID
@@ -10624,7 +10634,7 @@ export const ExternalId = {
   P8719: { ignore: true },
   // xHamster ID
   P8720: { ignore: true },
-  // AWMDB performer ID
+  // AWMDB performer ID (discontinued)
   P8721: { ignore: true },
   // Normattiva ID
   P8722: { ignore: true },
@@ -10743,7 +10753,7 @@ export const ExternalId = {
   // French Paralympic and Sports Committee athlete ID
   P8797: { ignore: true },
   // Twitch tag ID
-  P8799: { ignore: true },
+  P8799: { name: "Twitch", icon: "socials/twitch.svg" },
   // European Film Awards ID
   P8800: { ignore: true },
   // MSRI institution ID
@@ -10765,7 +10775,7 @@ export const ExternalId = {
   // AIWARDS ID
   P8809: { ignore: true },
   // Twitch team ID
-  P8811: { ignore: true },
+  P8811: { name: "Twitch", icon: "socials/twitch.svg" },
   // IMMuB artist ID
   P8812: { ignore: true },
   // IMMuB album ID
@@ -10775,7 +10785,7 @@ export const ExternalId = {
   // IAFD film distributor ID
   P8815: { ignore: true },
   // Yandex Zen ID
-  P8816: { ignore: true },
+  P8816: { name: "Yandex Zen", icon: "socials/yandex-zen.svg" },
   // NCAA organization code
   P8817: { ignore: true },
   // Church of Jesus Christ pioneer ID
@@ -10841,7 +10851,7 @@ export const ExternalId = {
   // Istrapedia ID
   P8603: { ignore: true },
   // OnlyFans ID
-  P8604: { ignore: true },
+  P8604: { name: "OnlyFans", icon: "socials/only-fans.svg" },
   // Linked Open Data Cloud identifier
   P8605: { ignore: true },
   // The Cutting Room Floor ID
@@ -11069,17 +11079,17 @@ export const ExternalId = {
   // Literary Encyclopedia ID
   P9001: { ignore: true },
   // Google Podcasts show ID
-  P9003: { ignore: true },
+  P9003: { name: "Google Podcasts", icon: "socials/google-podcast.svg" },
   // Stitcher show ID
   P9004: { ignore: true },
   // Castbox show ID
   P9005: { ignore: true },
   // Pocket Casts show ID
-  P9006: { ignore: true },
+  P9006: { name: "Pocket Casts", icon: "socials/pocket-casts.svg" },
   // Podcast Addict show ID
   P9007: { ignore: true },
   // TuneIn Podcasts show ID
-  P9008: { ignore: true },
+  P9008: { name: "TuneIn", icon: "socials/tune-in.svg" },
   // RadioPublic show ID
   P9009: { ignore: true },
   // Player.fm ID
@@ -11279,7 +11289,7 @@ export const ExternalId = {
   // AstroGen ID
   P8880: { ignore: true },
   // BBC sound effects asset ID
-  P8883: { ignore: true },
+  P8883: { name: "BBC", icon: "socials/bbc.svg" },
   // Namuwiki ID
   P8885: { ignore: true },
   // CIP data sheet
@@ -11307,7 +11317,7 @@ export const ExternalId = {
   // HAL journal ID
   P8903: { ignore: true },
   // Parler username
-  P8904: { ignore: true },
+  P8904: { name: "Parler", icon: "socials/parler.svg" },
   // Museo del Prado artwork ID
   P8905: { ignore: true },
   // National Gallery of Ireland ID
@@ -11367,9 +11377,9 @@ export const ExternalId = {
   // theses.cz ID
   P8937: { ignore: true },
   // Google Play developer slug
-  P8939: { ignore: true },
+  P8939: { name: "Google Play", icon: "socials/google-play.svg" },
   // AppGallery app ID
-  P8940: { ignore: true },
+  P8940: { icon: "AppGallery", name: "socials/app-gallery.svg" },
   // The Galileo Project ID
   P8941: { ignore: true },
   // Artfacts ID
@@ -11439,7 +11449,7 @@ export const ExternalId = {
   // BiblioLMC ID
   P9098: { ignore: true },
   // GitHub topic
-  P9100: { ignore: true },
+  P9100: { name: "Github", icon: "socials/github.svg" },
   // Discord username
   P9101: { ignore: true },
   // CineFanRo person ID
@@ -11589,7 +11599,7 @@ export const ExternalId = {
   // uta-net.com artist ID
   P9183: { ignore: true },
   // AllMusic genre/style ID
-  P9185: { ignore: true },
+  P9185: { name: "AllMusic", icon: "socials/all-music.svg" },
   // DicoPolHiS ID
   P9186: { ignore: true },
   // EuroBabeIndex.com ID
@@ -11725,7 +11735,7 @@ export const ExternalId = {
   // Odnoklassniki user numeric ID
   P9269: { ignore: true },
   // ANSI/NISO standard ID
-  P9270: { ignore: true },
+  P9270: { ignore: false },
   // Kickstarter username
   P9271: { ignore: true },
   // DeCS ID
@@ -12211,7 +12221,7 @@ export const ExternalId = {
   // Indiana State Historical Marker Program ID
   P9546: { ignore: true },
   // Apple Music label ID
-  P9550: { ignore: true },
+  P9550: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // bio.se movie theater ID
   P9551: { ignore: true },
   // MyBIS protected area ID
@@ -12547,7 +12557,7 @@ export const ExternalId = {
   // Podchaser creator ID
   P9743: { name: "Podchaser", icon: "socials/podchaser.webp" },
   // Steam Greenlight game ID
-  P9744: { ignore: true },
+  P9744: { name: "Steam", icon: "socials/steam.svg" },
   // CEICE school code
   P9746: { ignore: true },
   // Adventure Corner video game ID
@@ -12655,7 +12665,7 @@ export const ExternalId = {
   // Asian Historical Architecture structure ID
   P9811: { ignore: true },
   // Likee username
-  P9812: { ignore: true },
+  P9812: { name: "Likee", icon: "socials/likee.svg" },
   // Team Deutschland Paralympics ID
   P9814: { ignore: true },
   // BMC ID
@@ -12847,11 +12857,11 @@ export const ExternalId = {
   // Issuu ID
   P9921: { ignore: true },
   // Flipboard ID
-  P9922: { ignore: true },
+  P9922: { name: "Flipboard", icon: "socials/flipboard.svg" },
   // Umění pro město ID
   P9923: { ignore: true },
   // BBC Food ID
-  P9925: { ignore: true },
+  P9925: { name: "BBC", icon: "socials/bbc.svg" },
   // Baijiahao ID
   P9928: { ignore: true },
   // Inventory of Heritage Artefacts institution ID
@@ -13109,7 +13119,7 @@ export const ExternalId = {
   // State Duma person ID
   P10072: { ignore: true },
   // ESPN MMA fighter ID
-  P10073: { ignore: true },
+  P10073: { name: "ESPN", icon: "socials/espn.svg" },
   // Dr. Duke's Phytochemical and Ethnobotanical Databases chemical ID
   P10074: { ignore: true },
   // CREPČ institution ID
@@ -13175,7 +13185,7 @@ export const ExternalId = {
   // allplayers.in.ua player ID
   P10109: { ignore: true },
   // Apple Music track ID
-  P10110: { ignore: true },
+  P10110: { name: "Apple Music", icon: "socials/apple-music.svg" },
   // AbeBooks ID
   P10111: { ignore: true },
   // Australian Statistical Geography 2021 ID
@@ -13221,11 +13231,11 @@ export const ExternalId = {
   // Place Names of New Brunswick ID
   P10134: { ignore: true },
   // Pandora track ID
-  P10136: { ignore: true },
+  P10136: { name: "Pandora", icon: "socials/pandora.png" },
   // Nintendo64EVER ID
   P10137: { ignore: true },
   // Pandora album ID
-  P10138: { ignore: true },
+  P10138: { name: "Pandora", icon: "socials/pandora.png" },
   // Indonesian College Code
   P10139: { ignore: true },
   // Institute of History of Ukraine ID
@@ -13249,7 +13259,7 @@ export const ExternalId = {
   // Original Esperanto Literature author ID
   P10149: { ignore: true },
   // iTunes genre ID
-  P10151: { ignore: true },
+  P10151: { name: "iTunes", icon: "socials/itunes.svg" },
   // Rutube channel ID
   P10152: { ignore: true },
   // Nasha Versia ID
@@ -13497,7 +13507,7 @@ export const ExternalId = {
   // Muz-TV ID
   P10288: { ignore: true },
   // Podchaser numeric ID
-  P10289:{ name: "Podchaser", icon: "socials/podchaser.webp" },
+  P10289: { name: "Podchaser", icon: "socials/podchaser.webp" },
   // Wikisimpsons ID
   P10291: { ignore: true },
   // Wörterbuch der Präpositionen ID
@@ -13507,7 +13517,7 @@ export const ExternalId = {
   // Grand Duchy of Lithuania encyclopedia ID
   P10294: { ignore: true },
   // Amazon podcast ID
-  P10295: { ignore: true },
+  P10295: { name: "Amazon", icon: "socials/amazon.svg" },
   // Habr company ID
   P10296: { ignore: true },
   // Google Arts & Culture entity ID
@@ -13523,7 +13533,7 @@ export const ExternalId = {
   // Film.ru film ID
   P10303: { ignore: true },
   // Apple Podcasts podcast episode ID
-  P10304: { ignore: true },
+  P10304: { name: "Apple Podcasts", icon: "socials/apple-podcast.svg" },
   // StarHit ID
   P10305: { ignore: true },
   // North Data ID
@@ -13809,7 +13819,7 @@ export const ExternalId = {
   // Change.org decision maker ID
   P10457: { ignore: true },
   // Podchaser episode ID
-  P10458:{ name: "Podchaser", icon: "socials/podchaser.webp" },
+  P10458: { name: "Podchaser", icon: "socials/podchaser.webp" },
   // Rusactors actor ID
   P10459: { ignore: true },
   // Rusactors film ID
@@ -14207,7 +14217,7 @@ export const ExternalId = {
   // AccessScience ID
   P10707: { ignore: true },
   // settlement area code in Sweden
-  P10708: { ignore: true },
+  P10708: { ignore: false },
   // North Carolina Extension Gardener Plant Toolbox ID
   P10709: { ignore: true },
   // Galaxy Store app ID

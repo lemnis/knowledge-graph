@@ -54,10 +54,10 @@ const ImageProperties = [
   "P15",
   // image
   "P18",
-  // // flag image
-  // 'P41',
-  // // coat of arms image
-  // 'P94',
+  // flag image
+  'P41',
+  // coat of arms image
+  'P94',
   // signature
   "P109",
   // chemical structure
@@ -166,8 +166,8 @@ const ImageProperties = [
   "P8512",
   // view
   "P8517",
-  // // aerial view
-  // 'P8592',
+  // aerial view
+  'P8592',
   // twin town sign
   "P8667",
   // rank insignia
@@ -212,18 +212,37 @@ const Ignore = [
   "P242",
   // Location map
   "P1943",
-  // Aerial view
-  "P8592",
-  // Flag image
-  "P41",
-  // Seal image
-  "P158",
-  // Seal image
-  "P158",
   // Image of design plans
   "P3311",
   ...CategoryProperties,
 ];
+
+/** @param {{ [key: string]: { value: string } }} props */
+const getLink = ({
+  propFormat,
+  valueLabel,
+  propType,
+  value,
+  valueSitelink,
+}) => {
+  if (propFormat) {
+    return propFormat.value.replace("$1", valueLabel.value);
+  } else if (propType?.value === "http://wikiba.se/ontology#Url") {
+    return valueLabel.value;
+  } else if (propType?.value === "http://wikiba.se/ontology#WikibaseItem") {
+    if (valueSitelink) return valueSitelink.value;
+    return value.value;
+  }
+
+  return;
+};
+
+/** @param {{ [key: string]: { value: string } }} item */
+const getValue = (item) => {
+  const href = getLink(item);
+  const value = item.valueSitelinkName?.value || item.valueLabel.value;
+  return href ? /*html*/ `<a target="_blank" href="${href}">${value}</a>` : value;
+};
 
 /**
  * @param {{ results: { bindings: Record<string, {value: string, datatype?: string }>[]}}} data
@@ -231,21 +250,29 @@ const Ignore = [
  */
 export const transform = (data, id, lang = "en") =>
   data.results.bindings.reduce(
+    /**
+     *
+     * @param {import("../types.js").Schema} acc
+     * @param {*} item
+     * @param {*} i
+     * @param {*} arr
+     * @returns
+     */
     (acc, item, i, arr) => {
       const propLabel =
         item.propLabel.value.slice(0, 1).toUpperCase() +
         item.propLabel.value.slice(1);
 
-      if (item.itemLabel?.value) acc.heading = item.itemLabel.value;
-      if (item.itemDescription?.value)
-        acc.body.text = item.itemDescription.value;
-
       // If it has profiles, add wikidata as first item on last iteration.
-      if (item.sitelink?.value && acc.profiles.length && i + 1 === arr.length) {
-        acc.body.link = item.sitelink.value;
+      if (
+        item.itemSitelink?.value &&
+        acc.profiles.length &&
+        i + 1 === arr.length
+      ) {
+        acc.body.link = item.itemSitelink.value;
         acc.profiles.unshift({
           ...Socials.Wikipedia,
-          link: item.sitelink.value,
+          link: item.itemSitelink.value,
         });
       }
 
@@ -271,12 +298,10 @@ export const transform = (data, id, lang = "en") =>
         Object.keys(Socials).some((i) => item.prop.value.endsWith(i))
       ) {
         acc.profiles.push({
-          ...[...Object.entries(Socials)].find((i) =>
-            item.prop.value.endsWith(i[0])
+          ...[...Object.entries(Socials)].find(([id]) =>
+            item.prop.value.endsWith(id)
           )?.[1],
-          link: item.format?.value
-            ? item.format.value.replace("$1", item.valueLabel.value)
-            : item.valueLabel.value,
+          link: getLink(item),
         });
       } else if (
         item.prop.value &&
@@ -289,16 +314,14 @@ export const transform = (data, id, lang = "en") =>
           acc.profiles.push({
             name: "Vikipeda",
             icon: "./socials/vikidia.png",
-            link: item.format?.value
-              ? item.format.value.replace("$1", item.valueLabel.value)
-              : item.valueLabel.value,
+            link: getLink(item),
           });
         }
       } else if (
         // Ignore unmapped properties of specific type
         [
           ...[...Object.entries(ExternalId)]
-            .filter((i) => i[1].ignore === true)
+            .filter(([, item]) => item.ignore === true)
             .map(([key]) => key),
           ...WikimediaEntities,
           ...GlobeCoordinate,
@@ -308,25 +331,22 @@ export const transform = (data, id, lang = "en") =>
       } else if (
         item.value.datatype === "http://www.w3.org/2001/XMLSchema#dateTime"
       ) {
-        acc.facts[propLabel] = new Date(item.valueLabel.value).toDateString();
+        const date = new Date(item.valueLabel.value);
+        acc.facts[propLabel] = isNaN(date) ? item.valueLabel.value : date.toDateString();
       } else if (acc.facts[propLabel]) {
-        acc.facts[propLabel] += ", " + item.valueLabel.value;
+        acc.facts[propLabel] += `, ${getValue(item)}`;
       } else {
-        acc.facts[propLabel] = item.format?.value
-          ? `<a target="_blank" href="${item.format.value.replace(
-              "$1",
-              item.valueLabel.value
-            )}">${item.valueLabel.value}</a>`
-          : item.valueLabel.value;
+        acc.facts[propLabel] = getValue(item);
       }
 
       return acc;
     },
     {
-      image: {},
+      heading: data.results.bindings?.[0].itemLabel?.value,
       images: [],
       body: {
         source: "wikipedia",
+        text: data.results.bindings?.[0].itemDescription?.value,
       },
       facts: {},
       profiles: [],
@@ -347,15 +367,36 @@ export const transform = (data, id, lang = "en") =>
 export const wikidata = async (id, language = "en") => {
   const response = await fetch(
     "https://query.wikidata.org/sparql?query=" +
-      encodeURIComponent(/*sql*/ `SELECT ?itemLabel ?itemDescription ?propLabel ?prop ?value ?valueLabel ?sitelink ?format WHERE {
-        VALUES ?item { wd:${id} }
-        ?item ?key ?statement.
-        ?statement p:* ?value.
-        ?prop wikibase:directClaim ?key.
-        FILTER(!isLiteral(?value) || lang(?value) = "" || langMatches(lang(?value), "${language}"))
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "${language}". }
-        OPTIONAL { ?sitelink schema:about ?item; schema:isPartOf <https://${language}.wikipedia.org/>; }
-        OPTIONAL { ?prop wdt:P1630 ?format.}
+      encodeURIComponent(/*sql*/ `SELECT DISTINCT
+          ?itemLabel
+          ?itemDescription
+          ?itemSitelink
+          ?prop
+          ?propLabel
+          ?propFormat
+          ?propType
+          ?value
+          ?valueLabel
+          ?valueSitelink
+          ?valueSitelinkName
+        WHERE {
+          VALUES ?item { wd:${id} }
+          ?item ?key ?statement.
+          ?statement p:* ?value.
+          ?prop wikibase:directClaim ?key.
+          ?prop wikibase:propertyType ?propType.
+          FILTER(!isLiteral(?value) || lang(?value) = "" || langMatches(lang(?value), "${language}"))
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "${language}". }
+          OPTIONAL {
+            ?itemSitelink schema:about ?item;
+                          schema:isPartOf <https://${language}.wikipedia.org/>;
+          }
+          OPTIONAL {
+            ?valueSitelink  schema:about ?value;
+                            schema:isPartOf <https://${language}.wikipedia.org/>;
+                            schema:name ?valueSitelinkName;
+          }
+          OPTIONAL { ?prop wdt:P1630 ?propFormat.}
       }`),
     {
       headers: {
