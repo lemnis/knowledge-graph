@@ -36,9 +36,10 @@ export const html = ({
   facts,
   profiles,
   source,
+  defaultShownFacts,
   ...data
 }) => {
-  const { factList, factMore } = (facts && factHtml(facts)) || {};
+  const { factList, factMore } = (facts && factHtml(facts, defaultShownFacts)) || {};
 
   return /*html*/ `<div class="card__wrapper">
   <section class="card">

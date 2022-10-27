@@ -4,6 +4,7 @@
 :root {
   --color-gray-light: rgba(150, 150, 150, 0.2);
   --color-gray-dark: rgb(150, 150, 150);
+  --color-white: white;
   --border-radius: 8px;
   --spacer: 4px;
 }
@@ -25,6 +26,7 @@ body {
   padding: calc(var(--spacer) * 5);
   border: 2px solid var(--color-gray-light);
   border-radius: var(--border-radius);
+  background: var(--color-white);
 }
 
 .card__wrapper {

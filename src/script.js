@@ -20,11 +20,8 @@ class KnowledgeGraph extends HTMLElement {
           : duckduckgoTransform(await duckduckgo(this.key));
 
       if (this.topFacts?.length && data.facts) {
-        console.log(data.facts);
         const topFacts = [];
         const facts = [];
-
-        console.log(this.topFacts, data.facts.map(i => i[0]));
 
         data.facts.forEach((item) => {
           if (this.topFacts.includes(item[0])) {
@@ -37,7 +34,7 @@ class KnowledgeGraph extends HTMLElement {
         data.facts = [...topFacts, ...facts];
       }
 
-      const componentHtml = html(data);
+      const componentHtml = html({ ...data, defaultShownFacts: this.defaultShownFacts || 5 });
       if (shadow) {
         root.innerHTML = /*html*/ `
             <link rel="stylesheet" href="./style.css" />
@@ -54,12 +51,13 @@ class KnowledgeGraph extends HTMLElement {
   attributeChangedCallback(property, oldValue, newValue) {
     if (oldValue === newValue) return;
     if (property === "top-facts") this.topFacts = newValue.split(",");
+    else if (property === "shown-facts") this.defaultShownFacts = parseFloat(newValue);
     else this[property] = newValue;
     this.render();
   }
 
   static get observedAttributes() {
-    return ["source", "key", "shadow", "top-facts"];
+    return ["source", "key", "shadow", "top-facts", "shown-facts"];
   }
 
   connectedCallback() {
