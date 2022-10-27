@@ -1,0 +1,52 @@
+.card-profile__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  grid-gap: calc(var(--spacer) * 4);
+  background: linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.2), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.2), transparent)
+      100% 0;
+  background-attachment: local, local, scroll, scroll;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, calc(var(--spacer) * 3) 100%, calc(var(--spacer) * 3) 100%;
+  margin-bottom: calc(var(--spacer) * 2);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  padding-bottom: calc(var(--spacer) * 2);
+  scroll-padding-left: calc(var(--spacer) * 3);
+}
+
+.card-profile__list::-webkit-scrollbar {
+  height: 6px;
+  border-radius: 9999px;
+}
+
+.card-profile__list::-webkit-scrollbar-thumb {
+  background: var(--color-gray-light);
+}
+
+.card-profile__link {
+  display: grid;
+  width: calc(var(--spacer) * 12);
+  grid-template-rows: calc(var(--spacer) * 12) auto;
+  grid-gap: var(--spacer);
+  justify-items: center;
+  align-items: center;
+  font-size: 0.7em;
+  color: var(--color-gray-dark);
+  text-decoration: none;
+  scroll-snap-align: start;
+}
+
+.card-profile img {
+  margin: var(--spacer);
+  height: auto;
+  max-height: calc(100% - var(--spacer) * 2);
+  max-width: calc(100% - var(--spacer) * 2);
+  width: auto;
+  box-sizing: border-box;
+}

@@ -1,6 +1,9 @@
+@import url('./components/profile/profile.css');
+@import url('./components/fact/fact.css');
+
 :root {
   --color-gray-light: rgba(150, 150, 150, 0.2);
-  --color-gray-dark: rgb (150, 150, 150);
+  --color-gray-dark: rgb(150, 150, 150);
   --border-radius: 8px;
   --spacer: 4px;
 }
@@ -109,61 +112,4 @@ h1 {
   border-radius: 4px;
   padding: 0;
   margin: 0 0 25px 25px;
-}
-
-/** Fact */
-.card__fact {
-  border-top: 1px solid var(--color-gray-light);
-  line-height: 1.45;
-  padding: var(--spacer) 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-dd {
-  margin: 0;
-  font-weight: bold;
-  margin-right: 0.5em;
-  display: inline;
-}
-
-dt {
-  display: inline;
-}
-
-/** Profiles */
-.card-profile__list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  grid-gap: calc(var(--spacer) * 4);
-  flex-wrap: wrap;
-}
-
-.card-profile {
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: calc(var(--spacer) * 4);
-}
-
-.card-profile__link {
-  display: grid;
-  width: calc(var(--spacer) * 12);
-  grid-template-rows: calc(var(--spacer) * 12) auto;
-  grid-gap: var(--spacer);
-  justify-items: center;
-  align-items: center;
-  font-size: 0.7em;
-  color: var(--color-gray-dark);
-  text-decoration: none;
-}
-
-.card-profile img {
-  margin: var(--spacer);
-  height: auto;
-  max-height: calc(100% - var(--spacer) * 2);
-  max-width: calc(100% - var(--spacer) * 2);
-  width: auto;
-  box-sizing: border-box;
 }

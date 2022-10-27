@@ -248,8 +248,8 @@ const getValue = (item) => {
  * @param {{ results: { bindings: Record<string, {value: string, datatype?: string }>[]}}} data
  * @param {string} id
  */
-export const transform = (data, id, lang = "en") =>
-  data.results.bindings.reduce(
+export const transform = (data, id, lang = "en") =>{
+  const result = data.results.bindings.reduce(
     /**
      *
      * @param {import("../types.js").Schema} acc
@@ -358,7 +358,13 @@ export const transform = (data, id, lang = "en") =>
         )}" width="32" height="16" />`,
       },
     }
-  );
+  )
+
+  return {
+    ...result,
+    facts: Object.entries(result.facts)
+  }
+};
 
 /**
  * @param {string} id

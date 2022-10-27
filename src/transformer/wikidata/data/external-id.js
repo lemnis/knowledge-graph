@@ -301,7 +301,7 @@ export const ExternalId = {
   // OKATO ID
   P721: { ignore: true },
   // UIC station code
-  P722: { ignore: true },
+  P722: { ignore: false },
   // Digitale Bibliotheek voor de Nederlandse Letteren author ID
   P723: { ignore: true },
   // Internet Archive ID
@@ -4839,7 +4839,7 @@ export const ExternalId = {
   // Harvard botanical journal ID
   P4754: { ignore: true },
   // UK railway station code
-  P4755: { ignore: true },
+  P4755: { ignore: false },
   // V Live channel ID
   P4756: { ignore: true },
   // Songwriters Hall of Fame ID
@@ -4913,7 +4913,7 @@ export const ExternalId = {
   // BVPB authority ID
   P4802: { ignore: true },
   // Amtrak station code
-  P4803: { ignore: true },
+  P4803: { ignore: false },
   // Compagnon de la Libération ID
   P4804: { ignore: true },
   // Gaming-History ID
@@ -10955,7 +10955,7 @@ export const ExternalId = {
   // Encyclopaedia Beliana ID
   P8669: { ignore: true },
   // Deutsche Bahn station code
-  P8671: { ignore: true },
+  P8671: { ignore: false },
   // Twitter topic ID
   P8672: { name: "Twitter", icon: "socials/twitter.svg" },
   // Naver movie ID

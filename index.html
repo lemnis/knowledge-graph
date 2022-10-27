@@ -20,13 +20,14 @@
         "
         list="searchList"
         type="search"
-        value="Q19799735"
+        placeholder="Search for wikidata item..."
       />
       <datalist id="searchList"> </datalist>
       <knowledge-graph
         id="example"
-        key="Q19799735"
+        key="Q801214"
         source="wikidata"
+        top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
       ></knowledge-graph>
     </div>
 
@@ -38,34 +39,25 @@
         width: 100%;
       "
     >
-      <!-- <knowledge-graph key="New York" source="duckduckgo"></knowledge-graph>
-      <knowledge-graph key="Malaga" source="duckduckgo"></knowledge-graph>
-      <knowledge-graph key="Camp Nou  " source="duckduckgo"></knowledge-graph> -->
-      <knowledge-graph key="Q2770505" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q19799735" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q21877058" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q8851" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q60" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q720102" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q48435" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q20138806" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q159848" source="wikidata"></knowledge-graph>
+      <knowledge-graph
+        key="Q2770505"
+        source="wikidata"
+        top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
+      ></knowledge-graph>
+      <knowledge-graph
+        key="Q21877058"
+        source="wikidata"
+        top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
+      ></knowledge-graph>
+      <knowledge-graph
+        key="Q720102"
+        source="wikidata"
+        top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
+      ></knowledge-graph>
     </div>
-    <h1>Persons</h1>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(3, 30vw);
-        grid-gap: 2em;
-        width: 100%;
-      "
-    >
-      <knowledge-graph key="Q48435" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q20138806" source="wikidata"></knowledge-graph>
-      <knowledge-graph key="Q159848" source="wikidata"></knowledge-graph>
-    </div>
-    <script src="./script.js" type="module" crossorigin=""></script>
-    <link rel="stylesheet" href="./style.css" />
+
+    <script src="./src/script.js" type="module" crossorigin=""></script>
+    <link rel="stylesheet" href="./src/style.css" />
     <script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
     <link
       rel="stylesheet"
@@ -86,14 +78,14 @@
           const json = await response.json();
           update(
             json.search.map((i) => ({
-              label: `${i.label} (${i.description || ''})`,
+              label: `${i.label} (${i.description || ""})`,
               value: i.id,
             }))
           );
         },
         onSelect: function (item) {
           document.querySelector("#example").setAttribute("key", item.value);
-          input.value = item.label.split('(')?.[0]?.trim();
+          input.value = item.label.split("(")?.[0]?.trim();
         },
       });
     </script>

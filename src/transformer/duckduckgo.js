@@ -31,11 +31,7 @@ export const transform = (data) => ({
     link: data.AbstractURL,
   },
   facts: data.Infobox?.content
-    ?.filter(({ data_type }) => data_type === DataTypes.String)
-    .reduce((acc, item) => {
-      acc[item.label] = item.value;
-      return acc;
-    }, {}),
+    ?.filter(({ data_type }) => data_type === DataTypes.String),
   profiles: data.Infobox?.content
     ?.filter(({ data_type }) =>
       Object.values(SocialDataTypes).includes(data_type)
