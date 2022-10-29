@@ -1,5 +1,5 @@
-@import url('./components/profile/profile.css');
-@import url('./components/fact/fact.css');
+@import url("./components/profile/profile.css");
+@import url("./components/fact/fact.css");
 
 :root {
   --color-gray-light: rgba(150, 150, 150, 0.2);
@@ -7,19 +7,44 @@
   --color-white: white;
   --border-radius: 8px;
   --spacer: 4px;
+  --line-height: 1.2;
 }
 
 :host,
 knowledge-graph {
   display: block;
-  /* width: 1px; */
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-  "Lucida Sans", Arial, sans-serif;
+    "Lucida Sans", Arial, sans-serif;
+  line-height: var(--line-height);
 }
 
 body {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+}
+
+@keyframes shine {
+  to {
+    background-position: 150% 0, 0 0;
+  }
+}
+
+.loading {
+  animation: shine 1s infinite alternate ease-in-out;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+    lightgray;
+  background-position: -50% 0;
+  background-repeat: repeat-y;
+  background-size: 50% 100%;
+  border-radius: min(var(--border-radius), 1%);
+  height: var(--height, calc(var(--line-height) * 1em));
+  margin-bottom: var(--spacer);
+  vertical-align: middle;
 }
 
 .card {

@@ -39,7 +39,8 @@ export const html = ({
   defaultShownFacts,
   ...data
 }) => {
-  const { factList, factMore } = (facts && factHtml(facts, defaultShownFacts)) || {};
+  const { factList, factMore } =
+    (facts && factHtml(facts, defaultShownFacts)) || {};
 
   return /*html*/ `<div class="card__wrapper">
   <section class="card">
@@ -61,5 +62,37 @@ export const html = ({
   <a class="card__source" href="${source.link}" target="_blank">${
     source.text
   }</a>
+</div>`;
+};
+
+export const loading = () => {
+  return /*html*/ `<div class="card__wrapper" aria-busy="true">
+  <section class="card">
+    <h1 class="loading"></h1>
+    <div class="loading card__body"></div>
+    <div class="card__fact-wrapper">
+      <div class="card__fact">
+        <dd class="loading" style="width: 30%"></dd>
+        <dt class="loading"  style="width: 50%"></dt>
+      </div>
+      <div class="card__fact">
+        <dd class="loading" style="width: 40%"></dd>
+        <dt class="loading"  style="width: 50%"></dt>
+      </div>
+      <div class="card__fact">
+        <dd class="loading" style="width: 20%"></dd>
+        <dt class="loading"  style="width: 60%"></dt>
+      </div>
+      <div class="card__fact">
+        <dd class="loading" style="width: 50%"></dd>
+        <dt class="loading"  style="width: 40%"></dt>
+      </div>
+      <div class="card__fact">
+        <dd class="loading" style="width: 30%"></dd>
+        <dt class="loading"  style="width: 40%"></dt>
+      </div>
+    </div>
+  </section>
+  <div class="card__source loading" style="width: 30%"></div>
 </div>`;
 };

@@ -6,13 +6,17 @@ import {
   duckduckgo,
   transform as duckduckgoTransform,
 } from "./transformer/duckduckgo.js";
-import { html } from "./template.js";
+import { html, loading } from "./template.js";
 
 class KnowledgeGraph extends HTMLElement {
   async render() {
     if (!this.key || !this.source) return;
+    
     const shadow = this.shadow !== undefined;
     const root = shadow ? this.attachShadow({ mode: "open" }) : this;
+
+    root.innerHTML = loading();
+
     try {
       const data =
         this.source === "wikidata"
