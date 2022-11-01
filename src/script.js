@@ -6,22 +6,33 @@ import {
   duckduckgo,
   transform as duckduckgoTransform,
 } from "./transformer/duckduckgo.js";
+import {
+  openstreetmap,
+  transform as openstreetmapTransform,
+} from "./transformer/openstreetmap/index.js";
+
 import { html, loading } from "./template.js";
+
+const transformers = {
+  wikidata: { transform: wikidataTransform, getData: wikidata },
+  duckduckgo: { transform: duckduckgoTransform, getData: duckduckgo },
+  openstreetmap: { transform: openstreetmapTransform, getData: openstreetmap },
+};
 
 class KnowledgeGraph extends HTMLElement {
   async render() {
     if (!this.key || !this.source) return;
-    
+
     const shadow = this.shadow !== undefined;
     const root = shadow ? this.attachShadow({ mode: "open" }) : this;
 
     root.innerHTML = loading();
 
     try {
-      const data =
-        this.source === "wikidata"
-          ? wikidataTransform(await wikidata(this.key, "en"), this.key)
-          : duckduckgoTransform(await duckduckgo(this.key));
+      const data = transformers[this.source].transform(
+        await transformers[this.source].getData(this.key),
+        this.key
+      );
 
       if (this.topFacts?.length && data.facts) {
         const topFacts = [];
@@ -38,7 +49,10 @@ class KnowledgeGraph extends HTMLElement {
         data.facts = [...topFacts, ...facts];
       }
 
-      const componentHtml = html({ ...data, defaultShownFacts: this.defaultShownFacts || 5 });
+      const componentHtml = html({
+        ...data,
+        defaultShownFacts: this.defaultShownFacts || 5,
+      });
       if (shadow) {
         root.innerHTML = /*html*/ `
             <link rel="stylesheet" href="./style.css" />
@@ -55,7 +69,8 @@ class KnowledgeGraph extends HTMLElement {
   attributeChangedCallback(property, oldValue, newValue) {
     if (oldValue === newValue) return;
     if (property === "top-facts") this.topFacts = newValue.split(",");
-    else if (property === "shown-facts") this.defaultShownFacts = parseFloat(newValue);
+    else if (property === "shown-facts")
+      this.defaultShownFacts = parseFloat(newValue);
     else this[property] = newValue;
     this.render();
   }

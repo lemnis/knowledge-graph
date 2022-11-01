@@ -57,6 +57,8 @@ body {
 .card__wrapper {
   max-width: 640px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -98,7 +100,7 @@ h1 {
   font-size: 0.7em;
   opacity: 0.7;
   margin: var(--spacer);
-  float: right;
+  align-self: flex-end;
   text-decoration: none;
 }
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
+  <body style="margin: calc(var(--spacer) * 5)">
     <div>
       <input
         style="
@@ -25,20 +25,31 @@
       <datalist id="searchList"> </datalist>
       <knowledge-graph
         id="example"
-        key="Q801214"
+        key="Q19016181"
         source="wikidata"
         top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
       ></knowledge-graph>
     </div>
 
+    <div style="margin-top: calc(var(--spacer) * 5);"></div>
+    <hr />
     <div
       style="
         display: grid;
         grid-template-columns: repeat(3, 30vw);
-        grid-gap: 2em;
+        grid-gap: calc(var(--spacer) * 5);
         width: 100%;
       "
     >
+      <h1
+        style="
+          text-align: center;
+          margin: calc(var(--spacer) * 5);
+          grid-column: 1 / 4;
+        "
+      >
+        Wikidata
+      </h1>
       <knowledge-graph
         key="Q2770505"
         source="wikidata"
@@ -53,6 +64,38 @@
         key="Q720102"
         source="wikidata"
         top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
+      ></knowledge-graph>
+    </div>
+
+    <hr />
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, 30vw);
+        grid-gap: calc(var(--spacer) * 5);
+        width: 100%;
+      "
+    >
+      <h1
+        style="
+          text-align: center;
+          margin: calc(var(--spacer) * 5);
+          grid-column: 1 / 4;
+        "
+      >
+        OpenStreetMap
+      </h1>
+      <knowledge-graph
+        key="node/1387899494"
+        source="openstreetmap"
+      ></knowledge-graph>
+      <knowledge-graph
+        key="node/8196640867"
+        source="openstreetmap"
+      ></knowledge-graph>
+      <knowledge-graph
+        key="way/183870930"
+        source="openstreetmap"
       ></knowledge-graph>
     </div>
 

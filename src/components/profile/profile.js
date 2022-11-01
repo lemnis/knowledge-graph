@@ -3,7 +3,7 @@ import { base } from "../../constants.js";
 /** @type {(name: string, icon: string, link: string) => string} */
 export const profile = (name, icon, link) => /*html*/ `
   <li class="card-profile">
-    <a class="card-profile__link" href="${link}" title="${name}">
+    <a class="card-profile__link" href="${link}" title="${name}" target="_blank">
       <img src="${new URL(icon, base)}" />
       ${name}
     </a>

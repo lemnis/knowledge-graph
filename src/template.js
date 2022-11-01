@@ -1,6 +1,11 @@
 import { factHtml } from "./components/fact/fact.js";
 import { profileList } from "./components/profile/profile.js";
 
+/**
+ * @param {string} source
+ * @param {string} link
+ * @param {Schema['images']} images
+ */
 const image = (source, link, images) => /*html*/ `
   <div class="card-image__wrapper ${
     images.length === 1 ? "card-image__wrapper--single" : ""
@@ -15,6 +20,7 @@ const image = (source, link, images) => /*html*/ `
       .join(" ")}
   </div>`;
 
+/** @param {string} website */
 const websiteLink = (website) => /*html*/ `<a
 href="${website}"
 class="card__website"
@@ -23,28 +29,25 @@ title="Website"
 >`;
 
 /**
- * @param {{
- *  facts?: [string, string][],
- * [key: string]: any
- * }} options
+ * @param {Schema & { defaultShownFacts : number}} options
  * @returns
  */
 export const html = ({
   heading,
-  body,
+  body = {},
   website,
-  facts,
-  profiles,
+  facts = [],
+  profiles = [],
   source,
   defaultShownFacts,
-  ...data
+  images = [],
 }) => {
   const { factList, factMore } =
     (facts && factHtml(facts, defaultShownFacts)) || {};
 
   return /*html*/ `<div class="card__wrapper">
   <section class="card">
-    ${data.images.length ? image(body.source, body.link, data.images) : ""}
+    ${images.length ? image(body.source, body.link, images) : ""}
     <h1>${heading}</h1>
     ${website ? websiteLink(website) : ""}
     <div class="card__body">  

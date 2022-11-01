@@ -3429,7 +3429,7 @@ export const ExternalId = {
   // conifers.org ID
   P1940: { ignore: true },
   // Mapillary ID
-  P1947: { ignore: true },
+  P1947: { ignore: false, icon: "socials/mapillary.svg", name: "Mapillary" },
   // BerlPap identifier
   P1948: { ignore: true },
   // CulturaItalia ID
