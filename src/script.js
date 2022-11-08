@@ -19,9 +19,14 @@ const transformers = {
   openstreetmap: { transform: openstreetmapTransform, getData: openstreetmap },
 };
 
+const errorHtml = /*html*/ `<h1 style="text-align: center; font-weight: 400; margin: 1em;">Failed to load data</h1>`;;
+
 class KnowledgeGraph extends HTMLElement {
   async render() {
-    if (!this.key || !this.source) return;
+    if ((!this.key || !this.source) && !this.data) {
+      root.innerHTML = errorHtml;
+      return
+    };
 
     const shadow = this.shadow !== undefined;
     const root = shadow ? this.attachShadow({ mode: "open" }) : this;
@@ -29,10 +34,14 @@ class KnowledgeGraph extends HTMLElement {
     root.innerHTML = loading();
 
     try {
-      const data = transformers[this.source].transform(
-        await transformers[this.source].getData(this.key),
-        this.key
-      );
+      console.log(this.data);
+      const data = this.data
+        ? JSON.parse(this.data)
+        : transformers[this.source].transform(
+            await transformers[this.source].getData(this.key),
+            this.key
+          );
+      console.log(data);
 
       if (this.topFacts?.length && data.facts) {
         const topFacts = [];
@@ -62,7 +71,7 @@ class KnowledgeGraph extends HTMLElement {
       }
     } catch (error) {
       console.error(error);
-      root.innerHTML = /*html*/ `<h1 style="text-align: center; font-weight: 400; margin: 1em;">Failed to load data</h1>`;
+      root.innerHTML = errorHtml;
     }
   }
 
@@ -72,11 +81,12 @@ class KnowledgeGraph extends HTMLElement {
     else if (property === "shown-facts")
       this.defaultShownFacts = parseFloat(newValue);
     else this[property] = newValue;
+    console.log(property, this[property]);
     this.render();
   }
 
   static get observedAttributes() {
-    return ["source", "key", "shadow", "top-facts", "shown-facts"];
+    return ["source", "key", "shadow", "top-facts", "shown-facts", "data"];
   }
 
   connectedCallback() {

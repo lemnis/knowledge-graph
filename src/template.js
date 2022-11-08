@@ -22,11 +22,12 @@ const image = (source, link, images) => /*html*/ `
 
 /** @param {string} website */
 const websiteLink = (website) => /*html*/ `<a
-href="${website}"
-class="card__website"
-title="Website"
->${website?.replace(/^http(s)?:\/\//, "")}</a
->`;
+  href="${website}"
+  class="card__website"
+  title="Website"
+  >
+    ${website?.replace(/^http(s)?:\/\//, "")}
+  </a>`;
 
 /**
  * @param {Schema & { defaultShownFacts : number}} options
@@ -62,9 +63,9 @@ export const html = ({
     ${profiles && profiles.length ? profileList(profiles) : ""}
     ${factMore || ""}
   </section>
-  <a class="card__source" href="${source.link}" target="_blank">${
+  ${source.link ? /*html*/`<a class="card__source" href="${source.link}" target="_blank">${
     source.text
-  }</a>
+  }</a>` : `<div class="card__source">${source.text}</div>`}
 </div>`;
 };
 

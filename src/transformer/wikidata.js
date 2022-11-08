@@ -313,7 +313,7 @@ export const transform = (data, id, lang = "en") =>{
         if (vikidiaLang === lang) {
           acc.profiles.push({
             name: "Vikipeda",
-            icon: "./socials/vikidia.png",
+            icon: "./src/socials/vikidia.png",
             link: getLink(item),
           });
         }
@@ -353,7 +353,7 @@ export const transform = (data, id, lang = "en") =>{
       source: {
         link: `https://www.wikidata.org/wiki/${id}`,
         text: /*html*/ `Powered by Wikidata <img src="${new URL(
-          "assets/wikidata.svg",
+          "socials/wikidata.svg",
           base
         )}" width="32" height="16" />`,
       },

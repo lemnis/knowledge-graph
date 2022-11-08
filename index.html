@@ -31,7 +31,7 @@
       ></knowledge-graph>
     </div>
 
-    <div style="margin-top: calc(var(--spacer) * 5);"></div>
+    <div style="margin-top: calc(var(--spacer) * 5)"></div>
     <hr />
     <div
       style="
@@ -51,11 +51,6 @@
         Wikidata
       </h1>
       <knowledge-graph
-        key="Q2770505"
-        source="wikidata"
-        top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
-      ></knowledge-graph>
-      <knowledge-graph
         key="Q21877058"
         source="wikidata"
         top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
@@ -65,6 +60,56 @@
         source="wikidata"
         top-facts="UIC station code,UK railway station code,SNCF Station Identifier,IBNR ID,Benerail station ID,Deutsche Bahn station code,Station code"
       ></knowledge-graph>
+      <knowledge-graph key="Q5754662" source="wikidata"></knowledge-graph>
+    </div>
+
+    <hr />
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, 30vw);
+        grid-gap: calc(var(--spacer) * 5);
+        width: 100%;
+      "
+    >
+      <h1
+        style="
+          text-align: center;
+          margin: calc(var(--spacer) * 5);
+          grid-column: 1 / 4;
+        "
+      >
+        Static data
+      </h1>
+      <knowledge-graph data='{
+        "heading": "Marseille Saint-Charles",
+        "images": [],
+        "facts": [["coordonnees", "5.380407, 43.302666"],
+        ["commune", "codeINSEE: 13055, name: Marseille"],
+        ["departement", "code: 13, name: Bouches-du-Rhône"],
+        ["metropole", "code: 200054807, name: Métropole d’Aix-Marseille-Provence"],
+        ["region", "code: 93, name: Provence-Alpes-Côte d’Azur"],
+        ["pays", "code: FRA, name: France"],
+        ["UIC", "87751008"],
+        ["codeCRCICH", "0087751008BV"],
+        ["uuid", "8d630b30-cb0a-11e8-8bfa-f784c1c7c611"],
+        ["codeRegionSNCF", "58"],
+        ["codeRESARAIL", "FRMSC"],
+        ["platforms", "3/A, 5, B/C, D/E, F/G, H/I, J/K, L/M, N"],
+        ["tracks", "3,A,5,B,C,D,E,F,G,H,I,J,K,L,M,N"],
+        ["mode", "FERRE"],
+        ["indicateurSNCF", true],
+        ["indicateurMultimodal", true],
+        ["indicateurQuaisVoies", false],
+        ["indicateurTableauDeparts", true],
+        ["indicateurTableauArrivees", true],
+        ["code", "OCE87751008"],
+        ["type", "ZONE_ARRET"]],
+        "profiles": [],
+        "source": {
+          "text": "Data sourced from SNCF"
+        }
+      }'></knowledge-graph>
     </div>
 
     <hr />
@@ -90,7 +135,7 @@
         source="openstreetmap"
       ></knowledge-graph>
       <knowledge-graph
-        key="node/8196640867"
+        key="node/3662847634"
         source="openstreetmap"
       ></knowledge-graph>
       <knowledge-graph
